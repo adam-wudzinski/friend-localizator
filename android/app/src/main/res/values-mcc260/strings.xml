@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Śledzik</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Zarejestruj</string>
+    <string name="sing_in">Zaloguj</string>
+    <string name="password">Hasło</string>
+    <string name="email">E-mail</string>
+    <string name="repeat_password">Powtórz hasło</string>
+    <string name="ok">OK</string>
+    <string name="user_name">Imię</string>
+    <string name="user_surname">Nazwisko</string>
+    <string name="ul_user_name">Twoje imię</string>
+    <string name="change_password">Zmień hasło</string>
+    <string name="search_for_friends">Szukaj znajomych</string>
+</resources>

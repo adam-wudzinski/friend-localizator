@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Friend Spotter</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="sing_in">Sign In</string>
+    <string name="password">Password</string>
+    <string name="email">E-mail</string>
+    <string name="repeat_password">Repeat password</string>
+    <string name="ok">OK</string>
+    <string name="user_name">Name</string>
+    <string name="user_surname">Surname</string>
+    <string name="ul_user_name">Your name</string>
+    <string name="change_password">Change password</string>
+    <string name="search_for_friends">Search for friends</string>
+</resources>
