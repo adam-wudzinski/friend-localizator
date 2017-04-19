@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import szyszka.it.friendlocalizer.registration.SignUpActivity;
+
 
 public class HelloActivity extends AppCompatActivity {
 
