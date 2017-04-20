@@ -16,6 +16,7 @@ import java.net.URLConnection;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import szyszka.it.friendlocalizer.common.forms.LoginForm;
 import szyszka.it.friendlocalizer.server.users.User;
 
 import static szyszka.it.friendlocalizer.server.users.User.getJSON;
@@ -50,32 +51,12 @@ public class APIConnection {
         return connection.getResponseCode();
     }
 
-    public String checkConnection(URL checkURL, String username, String userpass) throws IOException {
-        HttpURLConnection connection = (HttpURLConnection) checkURL.openConnection();
+    public int loginUser(LoginForm loginForm, URL loginUrl) throws IOException {
+        HttpURLConnection connection = (HttpURLConnection) loginUrl.openConnection();
         connection.setDoInput(true);
-        connection.setRequestProperty("Authorization", "Basic " + getBase64Encoding(username,userpass));
+        connection.setRequestProperty("Authorization", "Basic " + getBase64Encoding(loginForm.getEmail(), loginForm.getPassword()));
 
-        int responseCode = connection.getResponseCode();
-
-        if(responseCode != HttpURLConnection.HTTP_OK) {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
-            StringBuilder response = new StringBuilder();
-            String line;
-            while((line = reader.readLine()) != null) {
-                response.append(line);
-            }
-            return response.toString();
-
-        } else {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            StringBuilder response = new StringBuilder();
-            String line;
-            while((line = reader.readLine()) != null) {
-                response.append(line);
-            }
-
-            return response.toString();
-        }
+        return connection.getResponseCode();
     }
 
     private String getBase64Encoding(String email, String password) {
