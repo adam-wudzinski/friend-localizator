@@ -1,13 +1,19 @@
-package szyszka.it.friendlocalizer.registration;
+package szyszka.it.friendlocalizer.activities;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+
+import javax.net.ssl.HttpsURLConnection;
 
 import szyszka.it.friendlocalizer.R;
 import szyszka.it.friendlocalizer.common.forms.SignUpForm;
@@ -55,14 +61,33 @@ public class SignUpActivity extends AppCompatActivity {
 
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                //TODO walidacja
+            public void onClick(View v) {//TODO walidacja
                 newUser = signUpForm.getUserFromForm();
-                try {
-                    api.registerUser(newUser, new URL(API_LINK + REG_LINK));
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                }
+                new AsyncTask<Void, Void, Integer>() {
+                    @Override
+                    protected Integer doInBackground(Void... params) {
+                        int reply = -1;
+                        try {
+                            reply = api.registerUser(newUser, new URL(API_URL + REG_LINK));
+                        } catch (MalformedURLException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        return reply;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Integer result) {
+                        if(result == HttpsURLConnection.HTTP_OK) {
+                            Toast.makeText(getApplicationContext(), "You have successfully registered.", Toast.LENGTH_LONG).show();
+                            Log.i("API", "Reg succeed " + result);
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Errors occurred during registration.", Toast.LENGTH_LONG).show();
+                            Log.i("API", "Reg failed " + result);
+                        }
+                    }
+                }.execute();
             }
         });
     }

@@ -1,4 +1,4 @@
-package szyszka.it.friendlocalizer;
+package szyszka.it.friendlocalizer.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import szyszka.it.friendlocalizer.registration.SignUpActivity;
+import szyszka.it.friendlocalizer.R;
+import szyszka.it.friendlocalizer.UserActivity;
+import szyszka.it.friendlocalizer.activities.SignUpActivity;
 
 
 public class HelloActivity extends AppCompatActivity {
