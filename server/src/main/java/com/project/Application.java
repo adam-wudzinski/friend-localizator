@@ -1,9 +1,7 @@
 package com.project;
 
-import com.project.auth.Account;
-import com.project.auth.AccountRepository;
-import com.project.hello.Person;
-import com.project.hello.PersonRepository;
+import com.project.user.User;
+import com.project.user.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +17,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by Adas on 2017-03-28.
@@ -41,43 +35,13 @@ public class Application {
     }
 
     @Bean
-    CommandLineRunner init(PersonRepository personRepository,
-                           AccountRepository accountRepository) {
+    CommandLineRunner init(
+                           UserRepository userRepository) {
         return args -> {
-            accountRepository.deleteAll();
-            accountRepository.save(new Account("admin@admin.pl", "admin"));
-
-            personRepository.deleteAll();
-
-            Person greg = new Person("Greg");
-            Person roy = new Person("Roy");
-            Person craig = new Person("Craig");
-
-            List<Person> team = Arrays.asList(greg, roy, craig);
-
-            log.info("Before linking up with Neo4j...");
-
-            team.stream().forEach(person -> log.info("\t" + person.toString()));
-
-            personRepository.save(greg);
-            personRepository.save(roy);
-            personRepository.save(craig);
-
-            greg = personRepository.findByName(greg.getName());
-            greg.isFriendWith(roy);
-            greg.isFriendWith(craig);
-            personRepository.save(greg);
-
-            roy = personRepository.findByName(roy.getName());
-            roy.isFriendWith(craig);
-            // We already know that roy works with greg
-            personRepository.save(roy);
-
-            // We already know craig works with roy and greg
-
-            log.info("Lookup each person by name...");
-            team.stream().forEach(person -> log.info(
-                    "\t" + personRepository.findByName(person.getName()).toString()));
+            userRepository.deleteAll();
+            userRepository.save(new User("admin@admin.pl", "admin", "pawel", "noga"));
+            userRepository.save(new User("pawel@admin.pl", "pawel", "adas", "adam"));
+            userRepository.save(new User("marek@admin.pl", "marek", "marek", "adam"));
         };
     }
 
@@ -85,7 +49,7 @@ public class Application {
     class WebSecurityConfiguration extends GlobalAuthenticationConfigurerAdapter {
 
         @Autowired
-        AccountRepository accountRepository;
+        UserRepository userRepository;
 
         @Override
         public void init(AuthenticationManagerBuilder auth) throws Exception {
@@ -97,10 +61,10 @@ public class Application {
             return new UserDetailsService() {
                 @Override
                 public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-                    Account account = accountRepository.findByEmail(username);
-                    if (account != null) {
-                        return new User(account.getEmail(),
-                                account.getPassword(),
+                    User person = userRepository.findByEmail(username);
+                    if (person != null) {
+                        return new org.springframework.security.core.userdetails.User(person.getEmail(),
+                                person.getPassword(),
                                 true, true, true, true,
                                 AuthorityUtils.createAuthorityList("USER"));
                     } else {

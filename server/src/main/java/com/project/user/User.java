@@ -1,4 +1,4 @@
-package com.project.auth;
+package com.project.user;
 
 import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
@@ -7,7 +7,7 @@ import org.neo4j.ogm.annotation.NodeEntity;
  * Created by Adas on 2017-04-18.
  */
 @NodeEntity
-public class Account {
+public class User {
 
     @GraphId
     private Long id;
@@ -17,15 +17,15 @@ public class Account {
     private String email;
     private String password;
 
-    public Account() {
+    public User() {
     }
 
-    public Account(String email, String password) {
+    public User(String email, String password) {
         this.email = email;
         this.password = password;
     }
 
-    public Account(String email, String password, String firstname, String lastname) {
+    public User(String email, String password, String firstname, String lastname) {
         this.email = email;
         this.password = password;
         this.firstname = firstname;
