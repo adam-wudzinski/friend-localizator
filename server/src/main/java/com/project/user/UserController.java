@@ -3,10 +3,13 @@ package com.project.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -31,5 +34,27 @@ public class UserController {
     public List<UserDTO> getUsers(@RequestParam(value = "search", required = false) String search ){
         return userService.findUsers(search);
     }
+
+    @RequestMapping(value = "/api/friends", method = RequestMethod.GET)
+    public List<UserDTO> getFriends(){
+        return userService.findUserFriends(getLoggedUser());
+    }
+
+    @RequestMapping(value="/api/friends", method = RequestMethod.POST)
+    public List<UserDTO>  addFriend(@RequestParam(value = "id", required = true) Long id){
+        return userService.friendUsers(id, getLoggedUser());
+    }
+
+    @RequestMapping(value = "/api/friends", method = RequestMethod.DELETE)
+    public List<UserDTO> deleteFriend(@RequestParam(value = "id", required = true) Long id){
+        return userService.unfriendUsers(getLoggedUser(), id);
+    }
+
+    private User getLoggedUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getName();
+        return userService.findByEmail(email);
+    }
+
 
 }

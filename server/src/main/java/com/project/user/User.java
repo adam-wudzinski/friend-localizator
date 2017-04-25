@@ -2,6 +2,10 @@ package com.project.user;
 
 import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Relationship;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Adas on 2017-04-18.
@@ -16,6 +20,22 @@ public class User {
     private String lastname;
     private String email;
     private String password;
+
+    @Relationship(type = "FRIEND", direction = Relationship.UNDIRECTED)
+    public Set<User> friends;
+
+    public void isFriendWith(User user) {
+        if (friends == null) {
+            friends = new HashSet<>();
+        }
+        friends.add(user);
+    }
+
+    public void unfriendWith(User user) {
+        if (friends != null) {
+            friends.remove(user);
+        }
+    }
 
     public User() {
     }

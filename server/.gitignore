@@ -47,5 +47,11 @@ crashlytics-build.properties
 fabric.properties
 
 #output
-build/*
+build/
+.gradle/
 
+
+/gradle/
+/build/
+/.idea/
+/.gradle/

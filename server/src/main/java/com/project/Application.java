@@ -39,9 +39,14 @@ public class Application {
                            UserRepository userRepository) {
         return args -> {
             userRepository.deleteAll();
-            userRepository.save(new User("admin@admin.pl", "admin", "pawel", "noga"));
-            userRepository.save(new User("pawel@admin.pl", "pawel", "adas", "adam"));
-            userRepository.save(new User("marek@admin.pl", "marek", "marek", "adam"));
+            User admin = new User("admin@admin.pl", "admin", "pawel", "noga");
+            User pawel = new User("pawel@admin.pl", "pawel", "adas", "adam");
+            User marek = new User("marek@admin.pl", "marek", "marek", "adam");
+            admin.isFriendWith(pawel);
+            admin.isFriendWith(marek);
+            userRepository.save(admin);
+            userRepository.save(pawel);
+            userRepository.save(marek);
         };
     }
 

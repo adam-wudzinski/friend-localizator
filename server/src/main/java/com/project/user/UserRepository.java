@@ -16,5 +16,4 @@ public interface UserRepository extends GraphRepository<User> {
     List<User> findByLastnameIgnoreCaseContaining(String lastname);
 
 
-
 }
