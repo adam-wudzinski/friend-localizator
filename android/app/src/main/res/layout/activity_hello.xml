@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="szyszka.it.friendlocalizer.HelloActivity">
+    tools:context="szyszka.it.friendlocalizer.activities.HelloActivity">
 
     <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -22,14 +22,14 @@
         android:layout_centerHorizontal="true">
 
         <EditText
-            android:id="@+id/loginInput"
+            android:id="@+id/emailInput"
             android:layout_width="290dp"
             android:layout_height="45dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="@string/login"
+            android:text="@string/email"
             android:textAlignment="center" />
 
         <EditText
@@ -50,7 +50,7 @@
             android:text="@string/sign_up"
             android:layout_alignBaseline="@+id/signIn"
             android:layout_alignBottom="@+id/signIn"
-            android:layout_alignEnd="@+id/loginInput"
+            android:layout_alignEnd="@+id/emailInput"
             android:backgroundTint="@color/red"/>
 
         <Button
@@ -59,7 +59,7 @@
             android:layout_height="50dp"
             android:text="@string/sing_in"
             android:layout_alignParentBottom="true"
-            android:layout_alignStart="@+id/loginInput"
+            android:layout_alignStart="@+id/emailInput"
             android:backgroundTint="@color/light_green"/>
     </RelativeLayout>
 </RelativeLayout>

@@ -11,27 +11,48 @@
         android:padding="@dimen/reg_main_layout_padding">
 
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="@dimen/small_padding">
+            android:padding="@dimen/small_padding" >
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/regular_font_size"
-                android:text="@string/login"
-                android:width="@dimen/reg_tv_width"
+                android:text="@string/user_name"
                 android:textColor="@color/fontColor"/>
 
             <EditText
-                android:id="@+id/userLogin"
+                android:id="@+id/userName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:textSize="@dimen/reg_in_font_size"
-                android:inputType="textPersonName"
-                android:width="@dimen/reg_et_width"/>
+                android:inputType="textPersonName" />
+
+        </TableRow>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/small_padding" >
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/regular_font_size"
+                android:text="@string/user_surname"
+                android:textColor="@color/fontColor"/>
+
+            <EditText
+                android:id="@+id/userSurname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:textSize="@dimen/reg_in_font_size"
+                android:inputType="textPersonName" />
         </TableRow>
 
         <TableRow
@@ -102,55 +123,10 @@
 
         </TableRow>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="@dimen/small_padding" >
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/regular_font_size"
-                android:text="@string/user_name"
-                android:textColor="@color/fontColor"/>
-
-            <EditText
-                android:id="@+id/userName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:textSize="@dimen/reg_in_font_size"
-                android:inputType="textPersonName" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="@dimen/small_padding" >
-
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/regular_font_size"
-                android:text="@string/user_surname"
-                android:textColor="@color/fontColor"/>
-
-            <EditText
-                android:id="@+id/userSurname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:textSize="@dimen/reg_in_font_size"
-                android:inputType="textPersonName" />
-        </TableRow>
-
     </TableLayout>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/confirmSignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
