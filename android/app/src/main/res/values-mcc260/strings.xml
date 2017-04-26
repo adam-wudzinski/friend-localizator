@@ -13,4 +13,9 @@
     <string name="ul_user_name">Twoje imię</string>
     <string name="change_password">Zmień hasło</string>
     <string name="search_for_friends">Szukaj znajomych</string>
+    <string name="successfully_registered">Zostałeś pomyślnie zarejestrowany.</string>
+    <string name="error">Wystąpił problem podczas przetwarzania Twojego żądania.</string>
+    <string name="http_status_code">Odpowiedź serwera: </string>
+    <string name="successfully_signed_in">Witaj :)</string>
+    <string name="remember_me">Remember me</string>
 </resources>

@@ -16,8 +16,8 @@ public class User {
     @GraphId
     private Long id;
 
-    private String firstname;
-    private String lastname;
+    private String name;
+    private String surname;
     private String email;
     private String password;
 
@@ -45,11 +45,11 @@ public class User {
         this.password = password;
     }
 
-    public User(String email, String password, String firstname, String lastname) {
+    public User(String email, String password, String name, String surname) {
         this.email = email;
         this.password = password;
-        this.firstname = firstname;
-        this.lastname = lastname;
+        this.name = name;
+        this.surname = surname;
     }
 
     public Long getId() {
@@ -68,20 +68,20 @@ public class User {
         this.password = password;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     public String getEmail() {

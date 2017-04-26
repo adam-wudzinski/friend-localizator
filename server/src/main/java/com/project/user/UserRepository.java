@@ -13,7 +13,7 @@ package com.project.user;
 public interface UserRepository extends GraphRepository<User> {
 
     User findByEmail(String email);
-    List<User> findByLastnameIgnoreCaseContaining(String lastname);
+    List<User> findBySurnameIgnoreCaseContaining(String lastname);
 
 
 }

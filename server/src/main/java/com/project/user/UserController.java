@@ -30,6 +30,11 @@ public class UserController {
         return new ResponseEntity<User>(user, HttpStatus.OK);
     }
 
+    @RequestMapping(value="/api", method = RequestMethod.GET)
+    public UserDTO getCurrentUser() {
+        return new UserDTO(getLoggedUser());
+    }
+
     @RequestMapping(value="/api/users", method = RequestMethod.GET)
     public List<UserDTO> getUsers(@RequestParam(value = "search", required = false) String search ){
         return userService.findUsers(search);
@@ -54,6 +59,7 @@ public class UserController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
         return userService.findByEmail(email);
+
     }
 
 

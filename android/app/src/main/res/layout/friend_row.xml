@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/friendIcon"
+        android:layout_width="60dp"
+        android:layout_height="60dp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/friendName"
+            android:textAllCaps="true"
+            android:textSize="14sp"
+            android:gravity="center_vertical"
+            android:textColor="@color/fontColor"
+            android:paddingLeft="10dp"
+            android:textAlignment="gravity"
+            android:layout_width="170dp"
+            android:layout_height="30dp" />
+
+        <TextView
+            android:id="@+id/friendEmail"
+            android:textSize="14sp"
+            android:gravity="center_vertical"
+            android:textColor="@color/grayFont"
+            android:paddingLeft="10dp"
+            android:layout_width="170dp"
+            android:layout_height="30dp" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/addFriend"
+        android:layout_width="60dp"
+        android:layout_height="60dp"/>
+
+    <ImageView
+        android:id="@+id/locateFriend"
+        android:layout_width="60dp"
+        android:layout_height="60dp"/>
+
+</LinearLayout>

@@ -8,7 +8,7 @@ import szyszka.it.friendlocalizer.server.users.User;
  * Created by Squier on 19.04.2017.
  */
 
-public class SignUpForm {
+public class RegisterForm {
 
     private EditText name;
     private EditText surname;
@@ -16,7 +16,7 @@ public class SignUpForm {
     private EditText pass;
     private EditText rPass;
 
-    public SignUpForm(EditText name, EditText surname, EditText email, EditText pass, EditText rPass) {
+    public RegisterForm(EditText name, EditText surname, EditText email, EditText pass, EditText rPass) {
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -24,8 +24,8 @@ public class SignUpForm {
         this.rPass = rPass;
     }
 
-    public User getUserFromForm() {
-        return new User(
+    public szyszka.it.friendlocalizer.server.users.User getUserFromForm() {
+        return new szyszka.it.friendlocalizer.server.users.User(
                 name.getText().toString(),
                 surname.getText().toString(),
                 email.getText().toString(),

@@ -9,9 +9,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class User {
 
-    private String name;
-    private String surname;
-    private String email;
+    public static class Session {
+        public static String KEY;
+    }
+
+    protected String name;
+    protected String surname;
+    protected String email;
     private String password;
 
     public User() {

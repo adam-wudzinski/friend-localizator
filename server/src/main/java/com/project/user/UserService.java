@@ -18,7 +18,7 @@ public class UserService {
     private UserRepository userRepository;
 
     public void saveUser(User user){
-        if (userRepository.findByEmail(user.getEmail()) != null) {
+        if (userRepository.findByEmail(user.getEmail()) == null) {
             userRepository.save(user);
         }
     }
@@ -28,7 +28,7 @@ public class UserService {
             name = "";
         }
         return userRepository
-                    .findByLastnameIgnoreCaseContaining(name)
+                    .findBySurnameIgnoreCaseContaining(name)
                     .stream()
                     .map(UserDTO::new)
                     .collect(Collectors.toList());

@@ -6,14 +6,14 @@ package com.project.user;
 public class UserDTO {
 
     private Long id;
-    private String firstname;
-    private String lastname;
+    private String name;
+    private String surname;
     private String email;
 
     public UserDTO(User user) {
         this.id = user.getId();
-        this.firstname = user.getFirstname();
-        this.lastname = user.getLastname();
+        this.name = user.getName();
+        this.surname = user.getSurname();
         this.email = user.getEmail();
     }
 
@@ -25,20 +25,20 @@ public class UserDTO {
         this.id = id;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     public String getEmail() {
