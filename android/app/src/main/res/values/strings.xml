@@ -11,10 +11,15 @@
     <string name="user_surname">Surname</string>
     <string name="ul_user_name">Your name</string>
     <string name="change_password">Change password</string>
-    <string name="search_for_friends">Search for friends</string>
-    <string name="successfully_registered">You have been successfully registered.</string>
+    <string name="search_for_friends">Search friends</string>
+    <string name="successfully_registered">You have been successfully registered.\nYou can sign in now.</string>
     <string name="error">An error occurred during your request.</string>
     <string name="http_status_code">Server returned status code:</string>
     <string name="successfully_signed_in">Welcome! :)</string>
     <string name="remember_me">Remember me</string>
+    <string-array name="tabsTitles">
+        <item>Your friends</item>
+        <item>Find new</item>
+        <item>Locate</item>
+    </string-array>
 </resources>

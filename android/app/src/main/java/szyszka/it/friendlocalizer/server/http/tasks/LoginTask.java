@@ -12,9 +12,7 @@ import java.net.URL;
 import java.util.Properties;
 
 import szyszka.it.friendlocalizer.R;
-import szyszka.it.friendlocalizer.UserActivity;
-import szyszka.it.friendlocalizer.activities.HelloActivity;
-import szyszka.it.friendlocalizer.activities.SignUpActivity;
+import szyszka.it.friendlocalizer.activities.UserActivity;
 import szyszka.it.friendlocalizer.common.forms.LoginForm;
 import szyszka.it.friendlocalizer.server.http.APIReply;
 import szyszka.it.friendlocalizer.server.http.FriedLocatorAPI;

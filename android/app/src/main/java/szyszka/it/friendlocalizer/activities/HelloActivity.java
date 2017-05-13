@@ -1,28 +1,21 @@
 package szyszka.it.friendlocalizer.activities;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import java.io.IOException;
-import java.net.URL;
 import java.util.Properties;
 
 import szyszka.it.friendlocalizer.R;
-import szyszka.it.friendlocalizer.UserActivity;
 import szyszka.it.friendlocalizer.common.forms.LoginForm;
 import szyszka.it.friendlocalizer.common.readers.PropertiesReader;
 import szyszka.it.friendlocalizer.server.http.FriedLocatorAPI;
 import szyszka.it.friendlocalizer.server.http.tasks.LoginTask;
 
-import static java.net.HttpURLConnection.HTTP_OK;
 import static szyszka.it.friendlocalizer.server.http.FriedLocatorAPI.API_CONFIG;
 
 

@@ -8,4 +8,6 @@
     <color name="backgroundWhite">#FAFAFA</color>
     <color name="red">#F44336</color>
     <color name="light_green">#8bc34a</color>
+    <color name="light_gray">#DFDFDF</color>
+    <color name="pink">#e91e63</color>
 </resources>

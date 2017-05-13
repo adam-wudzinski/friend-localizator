@@ -17,6 +17,7 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     <LinearLayout
+        android:id="@+id/loginForm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -82,4 +83,14 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="22dp"
         app:srcCompat="@drawable/app_logo" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal|center_vertical"
+        android:textColor="@color/fontColor"
+        android:textSize="@dimen/large_font_size"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/loginForm"/>
+
 </RelativeLayout>
