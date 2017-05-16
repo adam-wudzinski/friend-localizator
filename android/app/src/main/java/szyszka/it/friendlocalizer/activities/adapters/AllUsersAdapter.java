@@ -11,6 +11,8 @@ import android.widget.TextView;
 import java.util.List;
 
 import szyszka.it.friendlocalizer.R;
+import szyszka.it.friendlocalizer.activities.UserActivity;
+import szyszka.it.friendlocalizer.activities.fragments.listeners.AddAsFriendListener;
 import szyszka.it.friendlocalizer.server.users.UserDTO;
 
 /**
@@ -21,8 +23,11 @@ public class AllUsersAdapter extends ArrayAdapter<UserDTO> implements UserAdapte
 
     public static final String TAG = AllUsersAdapter.class.getSimpleName();
 
-    public AllUsersAdapter(Context context, int resource, List<UserDTO> users) {
+    private UserActivity userActivity;
+
+    public AllUsersAdapter(Context context, int resource, List<UserDTO> users, UserActivity userActivity) {
         super(context, resource, users);
+        this.userActivity = userActivity;
     }
 
     @Override
@@ -47,10 +52,16 @@ public class AllUsersAdapter extends ArrayAdapter<UserDTO> implements UserAdapte
         handle.locateFriend.setImageResource(R.drawable.ic_inactive_locate_friend);
         handle.addRemoveFriend.setImageResource(R.drawable.ic_add_as_friend);
 
+        initActions(handle, user);
+
         return rowView;
     }
 
-    public static class ViewHandle {
+    private void initActions(ViewHandle handle, UserDTO user) {
+        handle.addRemoveFriend.setOnClickListener(new AddAsFriendListener(userActivity, user.getId()));
+    }
+
+    static class ViewHandle {
         public ImageView friendIcon;
         public TextView friendName;
         public TextView friendEmail;
@@ -64,5 +75,15 @@ public class AllUsersAdapter extends ArrayAdapter<UserDTO> implements UserAdapte
             this.addRemoveFriend = (ImageView) addRemoveFriend;
             this.locateFriend = (ImageView) locateFriend;
         }
+    }
+
+    @Override
+    public void clearDataSet() {
+        clear();
+    }
+
+    @Override
+    public void addAllToDataSet(List<UserDTO> items) {
+        addAll(items);
     }
 }

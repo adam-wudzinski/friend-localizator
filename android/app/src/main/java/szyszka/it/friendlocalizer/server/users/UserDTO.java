@@ -17,7 +17,7 @@ public class UserDTO extends User {
 
     public static final String TAG = UserDTO.class.getSimpleName();
 
-    public int id;
+    private int id;
 
     public UserDTO() {
     }

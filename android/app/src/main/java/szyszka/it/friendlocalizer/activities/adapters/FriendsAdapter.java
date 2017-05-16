@@ -9,6 +9,9 @@ import android.widget.ArrayAdapter;
 import java.util.List;
 
 import szyszka.it.friendlocalizer.R;
+import szyszka.it.friendlocalizer.activities.UserActivity;
+import szyszka.it.friendlocalizer.activities.fragments.listeners.AddAsFriendListener;
+import szyszka.it.friendlocalizer.activities.fragments.listeners.UnfriendListener;
 import szyszka.it.friendlocalizer.server.users.UserDTO;
 
 import static szyszka.it.friendlocalizer.activities.adapters.AllUsersAdapter.*;
@@ -17,10 +20,13 @@ import static szyszka.it.friendlocalizer.activities.adapters.AllUsersAdapter.*;
  * Created by Squier on 13.05.2017.
  */
 
-public class UserFriendsAdapter extends ArrayAdapter<UserDTO> implements UserAdapter {
+public class FriendsAdapter extends ArrayAdapter<UserDTO> implements UserAdapter {
 
-    public UserFriendsAdapter(Context context, int resource, List<UserDTO> objects) {
+    private UserActivity activity;
+
+    public FriendsAdapter(Context context, int resource, List<UserDTO> objects, UserActivity activity) {
         super(context, resource, objects);
+        this.activity = activity;
     }
 
     @Override
@@ -47,7 +53,23 @@ public class UserFriendsAdapter extends ArrayAdapter<UserDTO> implements UserAda
         handle.addRemoveFriend.setImageResource(R.drawable.ic_minus);
         handle.locateFriend.setImageResource(R.drawable.ic_active_locate_friend);
 
+        initActions(handle, user);
+
         return rowView;
+    }
+
+    private void initActions(ViewHandle handle, UserDTO user) {
+        handle.addRemoveFriend.setOnClickListener(new UnfriendListener(activity, user.getId()));
+    }
+
+    @Override
+    public void clearDataSet() {
+        clear();
+    }
+
+    @Override
+    public void addAllToDataSet(List<UserDTO> items) {
+        addAll(items);
     }
 
 }

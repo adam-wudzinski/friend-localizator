@@ -28,6 +28,7 @@ import static szyszka.it.friendlocalizer.server.users.User.getJSON;
 public class FriedLocatorAPI implements Parcelable{
 
     public static final String API_CONFIG = "api_config.properties";
+    public final String SEARCH_USERS_URL_SUFFIX = "?search=";
 
     public static class Keys {
         public static final String API_URL_KEY = "api_url";
@@ -72,19 +73,12 @@ public class FriedLocatorAPI implements Parcelable{
         }
     };
 
-    public APIReply searchUsers(String bySurname, URL searchURL) {
-        DataOutputStream writer = null;
+    public APIReply unFriend(URL unfriendURL) {
         BufferedReader reader = null;
         try {
-            connection = (HttpURLConnection) searchURL.openConnection();
-            connection.setRequestMethod("GET");
+            connection = (HttpURLConnection) unfriendURL.openConnection();
+            connection.setRequestMethod("DELETE");
             connection.setRequestProperty("Authorization", User.Session.KEY);
-            Log.i(TAG, User.Session.KEY + " " + connection.getResponseCode());
-
-            if(bySurname != null) {
-                writer = new DataOutputStream(connection.getOutputStream());
-                writer.writeBytes(bySurname);
-            }
 
             reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
@@ -98,7 +92,55 @@ public class FriedLocatorAPI implements Parcelable{
             Log.e(TAG, e.getMessage());
             return APIReply.NO_REPLY;
         } finally {
-            closeConnection(writer, reader);
+            closeConnection(null, reader);
+        }
+    }
+
+    public APIReply addAsFriend(URL addURL) {
+        BufferedReader reader = null;
+
+        try {
+            connection = (HttpURLConnection) addURL.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Authorization", User.Session.KEY);
+
+            reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+            return new APIReply(
+                    readConnection(reader),
+                    connection.getResponseCode(),
+                    null
+            );
+
+        } catch (IOException e) {
+            Log.e(TAG, e.getMessage());
+            return APIReply.NO_REPLY;
+        } finally {
+            closeConnection(null, reader);
+        }
+    }
+
+    public APIReply searchUsers(URL searchURL) {
+        BufferedReader reader = null;
+        try {
+            connection = (HttpURLConnection) searchURL.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setRequestProperty("Authorization", User.Session.KEY);
+            Log.i(TAG, User.Session.KEY + " " + connection.getResponseCode());
+
+            reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+            return new APIReply(
+                    readConnection(reader),
+                    connection.getResponseCode(),
+                    null
+            );
+
+        } catch (IOException e) {
+            Log.e(TAG, e.getMessage());
+            return APIReply.NO_REPLY;
+        } finally {
+            closeConnection(null, reader);
         }
     }
 
