@@ -134,4 +134,10 @@ public class User {
     public Double getLongitude() {
         return longitude;
     }
+
+    public boolean isFriendWith(Long id) {
+        return friends.stream()
+                .filter(f -> f.getId().equals(id))
+                .count() == 1;
+    }
 }

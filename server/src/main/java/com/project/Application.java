@@ -44,7 +44,6 @@ public class Application {
             User marek = new User("marek@admin.pl", "marek", "marek", "adam");
             admin.isFriendWith(pawel);
             admin.isFriendWith(marek);
-            pawel.isFriendWith(marek);
 
             pawel.setLatitude(2.0);
             pawel.setLongitude(2.0);

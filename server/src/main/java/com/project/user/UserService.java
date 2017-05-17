@@ -97,4 +97,16 @@ public class UserService {
                 .map(LocalizedUserDTO::new)
                 .collect(Collectors.toList());
     }
+
+    public List<UserDTO> findUsersNotFriendedWith(User loggedUser, String name) {
+        if (name == null) {
+            name = "";
+        }
+        return userRepository
+                .findBySurnameIgnoreCaseContaining(name)
+                .stream()
+                .filter(u -> loggedUser.isFriendWith(u.getId()))
+                .map(UserDTO::new)
+                .collect(Collectors.toList());
+    }
 }

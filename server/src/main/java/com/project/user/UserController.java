@@ -34,7 +34,7 @@ public class UserController {
 
     @RequestMapping(value="/api/users", method = RequestMethod.GET)
     public List<UserDTO> getUsers(@RequestParam(value = "search", required = false) String search ){
-        return userService.findUsers(search);
+        return userService.findUsersNotFriendedWith(getLoggedUser(), search);
     }
 
     @RequestMapping(value = "/api/friends", method = RequestMethod.GET)
