@@ -72,7 +72,13 @@ public class UserController {
         return new ResponseEntity<LocalizedUserDTO>(new LocalizedUserDTO(user), HttpStatus.OK);
     }
 
+    @RequestMapping(value="/api/share-localization", method = RequestMethod.POST)
+    public List<UserDTO>  shareLocalization(@RequestParam(value = "id", required = true) Long id){
+        return localizationService.shareLocalization(getLoggedUser(), id);
+    }
 
-
-
+    @RequestMapping(value="/api/share-localization", method = RequestMethod.DELETE)
+    public List<UserDTO>  unshareLocalization(@RequestParam(value = "id", required = true) Long id){
+        return localizationService.unshareLocalization(getLoggedUser(), id);
+    }
 }

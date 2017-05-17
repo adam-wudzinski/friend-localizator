@@ -42,8 +42,8 @@ public class Application {
             User admin = new User("admin@admin.pl", "admin", "pawel", "noga");
             User pawel = new User("pawel@admin.pl", "pawel", "adas", "adam");
             User marek = new User("marek@admin.pl", "marek", "marek", "adam");
-            admin.isFriendWith(pawel);
-            admin.isFriendWith(marek);
+            admin.friendWith(pawel);
+            admin.friendWith(marek);
 
             pawel.setLatitude(2.0);
             pawel.setLongitude(2.0);
@@ -54,6 +54,7 @@ public class Application {
 
             pawel.shareLocationWith(marek);
             admin.shareLocationWith(pawel);
+
             userRepository.save(admin);
             userRepository.save(pawel);
             userRepository.save(marek);

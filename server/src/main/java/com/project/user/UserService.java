@@ -74,8 +74,8 @@ public class UserService {
     }
 
     private void friendUsers(User firstUser, User secondUser) {
-        secondUser.isFriendWith(firstUser);
-        firstUser.isFriendWith(secondUser);
+        secondUser.friendWith(firstUser);
+        firstUser.friendWith(secondUser);
         userRepository.save(secondUser);
         userRepository.save(firstUser);
     }
@@ -105,7 +105,8 @@ public class UserService {
         return userRepository
                 .findBySurnameIgnoreCaseContaining(name)
                 .stream()
-                .filter(u -> loggedUser.isFriendWith(u.getId()))
+                .filter(u -> !loggedUser.isFriendWith(u.getId()))
+                .filter(u -> u.getId() != loggedUser.getId())
                 .map(UserDTO::new)
                 .collect(Collectors.toList());
     }

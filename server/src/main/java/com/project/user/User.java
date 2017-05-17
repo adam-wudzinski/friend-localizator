@@ -29,7 +29,7 @@ public class User {
     @Relationship(type = "SHARES_LOCALIZATION", direction = Relationship.OUTGOING)
     public Set<User> shares;
 
-    public void isFriendWith(User user) {
+    public void friendWith(User user) {
         if (friends == null) {
             friends = new HashSet<>();
         }
@@ -59,7 +59,7 @@ public class User {
     }
 
     public void unshareLocationWith(User user){
-        if (shares == null) {
+        if (shares != null) {
             shares.remove(user);
         }
     }
@@ -139,5 +139,9 @@ public class User {
         return friends.stream()
                 .filter(f -> f.getId().equals(id))
                 .count() == 1;
+    }
+
+    public Set<User> getShares() {
+        return shares;
     }
 }
