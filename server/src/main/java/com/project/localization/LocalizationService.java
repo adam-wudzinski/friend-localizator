@@ -1,5 +1,8 @@
-package com.project.user;
+package com.project.localization;
 
+import com.project.user.User;
+import com.project.user.UserDTO;
+import com.project.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,6 +48,13 @@ public class LocalizationService {
         }
         return loggedUser.getShares().stream()
                 .map(UserDTO::new)
+                .collect(Collectors.toList());
+    }
+
+    public List<LocalizedUserDTO> findLocalizedFriends(User loggedUser) {
+        return loggedUser.friends.stream()
+                .filter(x -> x.isSharingLocationWith(loggedUser))
+                .map(LocalizedUserDTO::new)
                 .collect(Collectors.toList());
     }
 }

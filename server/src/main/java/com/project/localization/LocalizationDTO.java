@@ -1,4 +1,4 @@
-package com.project.user;
+package com.project.localization;
 
 /**
  * Created by Adas on 2017-05-17.
@@ -11,7 +11,6 @@ public class LocalizationDTO {
     }
 
     public LocalizationDTO(Double longitude, Double latitude) {
-
         this.longitude = longitude;
         this.latitude = latitude;
     }

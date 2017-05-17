@@ -1,4 +1,6 @@
-package com.project.user;
+package com.project.localization;
+
+import com.project.user.User;
 
 /**
  * Created by Adas on 2017-05-17.

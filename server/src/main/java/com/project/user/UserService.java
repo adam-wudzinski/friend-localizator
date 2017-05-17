@@ -91,12 +91,6 @@ public class UserService {
         return logged != null && toFriendWith != null;
     }
 
-    public List<LocalizedUserDTO> findLocalizedFriends(User loggedUser) {
-        return loggedUser.friends.stream()
-                .filter(x -> x.isSharingLocationWith(loggedUser))
-                .map(LocalizedUserDTO::new)
-                .collect(Collectors.toList());
-    }
 
     public List<UserDTO> findUsersNotFriendedWith(User loggedUser, String name) {
         if (name == null) {

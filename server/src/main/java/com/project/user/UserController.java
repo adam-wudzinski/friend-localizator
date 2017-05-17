@@ -18,8 +18,6 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-    @Autowired
-    private LocalizationService localizationService;
 
     @RequestMapping(value = "/auth/register", method = RequestMethod.POST)
     public ResponseEntity<User> register(@RequestBody User user){
@@ -61,24 +59,4 @@ public class UserController {
 
     }
 
-    @RequestMapping(value = "/api/localized-friends", method = RequestMethod.GET)
-    public List<LocalizedUserDTO> getLocalizedFriends(){
-        return userService.findLocalizedFriends(getLoggedUser());
-    }
-
-    @RequestMapping(value = "/api/localization", method = RequestMethod.POST)
-    public ResponseEntity<LocalizedUserDTO> register(@RequestBody LocalizationDTO localization){
-        User user = localizationService.updateLocalization(getLoggedUser(), localization);
-        return new ResponseEntity<LocalizedUserDTO>(new LocalizedUserDTO(user), HttpStatus.OK);
-    }
-
-    @RequestMapping(value="/api/share-localization", method = RequestMethod.POST)
-    public List<UserDTO>  shareLocalization(@RequestParam(value = "id", required = true) Long id){
-        return localizationService.shareLocalization(getLoggedUser(), id);
-    }
-
-    @RequestMapping(value="/api/share-localization", method = RequestMethod.DELETE)
-    public List<UserDTO>  unshareLocalization(@RequestParam(value = "id", required = true) Long id){
-        return localizationService.unshareLocalization(getLoggedUser(), id);
-    }
 }
