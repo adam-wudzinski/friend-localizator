@@ -20,9 +20,14 @@ public class User {
     private String surname;
     private String email;
     private String password;
+    private Double latitude;
+    private Double longitude;
 
     @Relationship(type = "FRIEND", direction = Relationship.UNDIRECTED)
     public Set<User> friends;
+
+    @Relationship(type = "SHARES_LOCALIZATION", direction = Relationship.OUTGOING)
+    public Set<User> shares;
 
     public void isFriendWith(User user) {
         if (friends == null) {
@@ -34,6 +39,28 @@ public class User {
     public void unfriendWith(User user) {
         if (friends != null) {
             friends.remove(user);
+        }
+    }
+
+    public boolean isSharingLocationWith(User user) {
+        if (shares != null) {
+            return shares.stream()
+                    .filter(x -> x.getId() == user.getId())
+                    .count() == 1;
+        }
+        return false;
+    }
+
+    public void shareLocationWith(User user){
+        if (shares == null) {
+            shares = new HashSet<>();
+        }
+        shares.add(user);
+    }
+
+    public void unshareLocationWith(User user){
+        if (shares == null) {
+            shares.remove(user);
         }
     }
 
@@ -90,5 +117,21 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
     }
 }

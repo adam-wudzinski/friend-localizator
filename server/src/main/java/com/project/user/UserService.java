@@ -90,4 +90,11 @@ public class UserService {
     private boolean usersExists(User logged, User toFriendWith) {
         return logged != null && toFriendWith != null;
     }
+
+    public List<LocalizedUserDTO> findLocalizedFriends(User loggedUser) {
+        return loggedUser.friends.stream()
+                .filter(x -> x.isSharingLocationWith(loggedUser))
+                .map(LocalizedUserDTO::new)
+                .collect(Collectors.toList());
+    }
 }
