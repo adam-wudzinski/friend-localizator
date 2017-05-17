@@ -18,6 +18,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private LocalizationService localizationService;
 
     @RequestMapping(value = "/auth/register", method = RequestMethod.POST)
     public ResponseEntity<User> register(@RequestBody User user){
@@ -64,6 +66,11 @@ public class UserController {
         return userService.findLocalizedFriends(getLoggedUser());
     }
 
+    @RequestMapping(value = "/api/localization", method = RequestMethod.POST)
+    public ResponseEntity<LocalizedUserDTO> register(@RequestBody LocalizationDTO localization){
+        User user = localizationService.updateLocalization(getLoggedUser(), localization);
+        return new ResponseEntity<LocalizedUserDTO>(new LocalizedUserDTO(user), HttpStatus.OK);
+    }
 
 
 
