@@ -99,10 +99,14 @@ public class UserService {
         return userRepository
                 .findBySurnameIgnoreCaseContaining(name)
                 .stream()
-                .filter(u -> !loggedUser.isFriendWith(u.getId()))
-                .filter(u -> u.getId() != loggedUser.getId())
+                .filter(user -> !isFriend(loggedUser, user))
                 .map(UserDTO::new)
                 .collect(Collectors.toList());
+    }
+
+    private boolean isFriend(User loggedUser, User u) {
+        return loggedUser.isFriendWith(u.getId())
+                || u.getId() == loggedUser.getId();
     }
 
 }

@@ -136,6 +136,9 @@ public class User {
     }
 
     public boolean isFriendWith(Long id) {
+        if (friends == null || friends.isEmpty()) {
+            return false;
+        }
         return friends.stream()
                 .filter(f -> f.getId().equals(id))
                 .count() == 1;
