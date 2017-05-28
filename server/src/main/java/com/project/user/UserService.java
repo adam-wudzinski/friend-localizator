@@ -73,6 +73,18 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
+    public List<UserDTO> findUsersNotFriendedWith(User loggedUser, String name) {
+        if (name == null) {
+            name = "";
+        }
+        return userRepository
+                .findBySurnameIgnoreCaseContaining(name)
+                .stream()
+                .filter(user -> !isFriend(loggedUser, user))
+                .map(UserDTO::new)
+                .collect(Collectors.toList());
+    }
+
     private void friendUsers(User firstUser, User secondUser) {
         secondUser.friendWith(firstUser);
         firstUser.friendWith(secondUser);
@@ -91,18 +103,6 @@ public class UserService {
         return logged != null && toFriendWith != null;
     }
 
-
-    public List<UserDTO> findUsersNotFriendedWith(User loggedUser, String name) {
-        if (name == null) {
-            name = "";
-        }
-        return userRepository
-                .findBySurnameIgnoreCaseContaining(name)
-                .stream()
-                .filter(user -> !isFriend(loggedUser, user))
-                .map(UserDTO::new)
-                .collect(Collectors.toList());
-    }
 
     private boolean isFriend(User loggedUser, User u) {
         return loggedUser.isFriendWith(u.getId())

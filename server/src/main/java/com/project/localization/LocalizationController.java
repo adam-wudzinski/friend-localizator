@@ -3,11 +3,10 @@ package com.project.localization;
 import com.project.user.User;
 import com.project.user.UserDTO;
 import com.project.user.UserService;
+import com.project.utils.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,6 +22,8 @@ public class LocalizationController {
     private UserService userService;
     @Autowired
     private LocalizationService localizationService;
+    @Autowired
+    private AuthService authService;
 
     @RequestMapping(value = "", method = RequestMethod.PUT)
     public ResponseEntity<LocalizedUserDTO> updateLocalization(@RequestBody LocalizationDTO localization){
@@ -46,8 +47,7 @@ public class LocalizationController {
     }
 
     private User getLoggedUser() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String email = auth.getName();
+        String email = authService.getLoggedUserEmail();
         return userService.findByEmail(email);
 
     }

@@ -14,12 +14,14 @@ public class LocalizedUserDTO {
     private Double longitude;
 
     public LocalizedUserDTO(User user) {
-        this.id = user.getId();
-        this.name = user.getName();
-        this.surname = user.getSurname();
-        this.email = user.getEmail();
-        this.latitude = user.getLatitude();
-        this.longitude = user.getLongitude();
+        if (user != null) {
+            this.id = user.getId();
+            this.name = user.getName();
+            this.surname = user.getSurname();
+            this.email = user.getEmail();
+            this.latitude = user.getLatitude();
+            this.longitude = user.getLongitude();
+        }
     }
 
     public Long getId() {

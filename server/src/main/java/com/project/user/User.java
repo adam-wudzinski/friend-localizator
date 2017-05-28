@@ -65,11 +65,15 @@ public class User {
     }
 
     public User() {
+        this.friends = new HashSet<>();
+        this.shares = new HashSet<>();
     }
 
     public User(String email, String password) {
         this.email = email;
         this.password = password;
+        this.friends = new HashSet<>();
+        this.shares = new HashSet<>();
     }
 
     public User(String email, String password, String name, String surname) {
@@ -77,6 +81,8 @@ public class User {
         this.password = password;
         this.name = name;
         this.surname = surname;
+        this.friends = new HashSet<>();
+        this.shares = new HashSet<>();
     }
 
     public Long getId() {

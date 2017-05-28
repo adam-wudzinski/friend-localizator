@@ -1,10 +1,9 @@
 package com.project.user;
 
+import com.project.utils.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +17,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private AuthService authService;
 
     @RequestMapping(value = "/auth/register", method = RequestMethod.POST)
     public ResponseEntity<User> register(@RequestBody User user){
@@ -53,10 +54,8 @@ public class UserController {
     }
 
     private User getLoggedUser() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String email = auth.getName();
+        String email = authService.getLoggedUserEmail();
         return userService.findByEmail(email);
-
     }
 
 }
