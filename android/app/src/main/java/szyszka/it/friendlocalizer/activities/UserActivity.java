@@ -123,6 +123,7 @@ public class UserActivity extends FragmentActivity {
 
         locateFriends = new MapViewFragment();
         locateFriends.setLocationManager((LocationManager) context.getSystemService(LOCATION_SERVICE));
+        locateFriends.setUserActivity(this);
 
         userPagerAdapter = new UserPagerAdapter(getSupportFragmentManager());
     }

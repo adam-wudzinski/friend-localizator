@@ -26,7 +26,14 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
 import szyszka.it.friendlocalizer.R;
+import szyszka.it.friendlocalizer.activities.UserActivity;
+import szyszka.it.friendlocalizer.location.Locations;
+import szyszka.it.friendlocalizer.location.MyLocation;
+import szyszka.it.friendlocalizer.server.http.tasks.LocateMyFriends;
+import szyszka.it.friendlocalizer.server.users.LocalizedUser;
 
 /**
  * Created by Squier on 18.05.2017.
@@ -42,6 +49,8 @@ public class MapViewFragment extends Fragment {
     private MapView mapView;
     private Marker userMarker;
     private GoogleMap map;
+    private Locations locations = new Locations(new MyLocation(), new ArrayList<LocalizedUser>(), new ArrayList<Marker>());
+    private UserActivity userActivity;
 
     @Nullable
     @Override
@@ -61,11 +70,16 @@ public class MapViewFragment extends Fragment {
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 map = googleMap;
+                locations.setMap(map);
                 locateMe(map);
             }
         });
 
         return rootView;
+    }
+
+    public void setUserActivity(UserActivity userActivity) {
+        this.userActivity = userActivity;
     }
 
     public void setLocationManager(LocationManager locationManager) {
@@ -81,7 +95,7 @@ public class MapViewFragment extends Fragment {
             }, REQUEST_PERMISSIONS_CODE);
             return;
         } else {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 0, new MyLocationListener());
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000, 0, new MyLocationListener());
         }
     }
 
@@ -90,7 +104,7 @@ public class MapViewFragment extends Fragment {
         switch (requestCode) {
             case REQUEST_PERMISSIONS_CODE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 0, new MyLocationListener());
+                    locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000, 0, new MyLocationListener());
                 }
                 break;
             }
@@ -124,6 +138,8 @@ public class MapViewFragment extends Fragment {
     private class MyLocationListener implements LocationListener {
 
         public final String TAG = MyLocationListener.class.getSimpleName();
+        private MyLocation userLocation = new MyLocation();
+        private boolean zoomed = false;
 
         @Override
         public void onLocationChanged(Location location) {
@@ -132,16 +148,27 @@ public class MapViewFragment extends Fragment {
                 userMarker.remove();
             }
 
-            double lat = location.getLatitude();
-            double lng = location.getLongitude();
+            userLocation.setLatitude(location.getLatitude());
+            userLocation.setLongitude(location.getLongitude());
+            locations.setUserLocation(userLocation);
 
-            Log.i(TAG, "Latitude: " + lat + " Longitude: " + lng);
+            Log.i(TAG, "Latitude: " + userLocation.getLatitude() + " Longitude: " + userLocation.getLongitude());
 
-            userMarker = map.addMarker(new MarkerOptions()
-                    .title("Here you are!")
-                    .position(new LatLng(lat, lng)));
-            userMarker.showInfoWindow();
-            map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 17.0f));
+            if(!zoomed) {
+                map.animateCamera(
+                        CameraUpdateFactory.newLatLngZoom(
+                                new LatLng(userLocation.getLatitude(), userLocation.getLongitude()), 14.0f
+                        )
+                );
+                zoomed = true;
+            }
+
+            LocateMyFriends locateMyFriends = new LocateMyFriends(
+                    userActivity.getApiConfig(), userActivity.getApi(), locations
+            );
+
+            locateMyFriends.execute();
+
         }
 
         @Override
