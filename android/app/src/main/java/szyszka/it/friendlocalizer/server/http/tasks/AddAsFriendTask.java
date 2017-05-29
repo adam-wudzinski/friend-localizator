@@ -10,6 +10,7 @@ import java.util.Properties;
 import szyszka.it.friendlocalizer.activities.UserActivity;
 import szyszka.it.friendlocalizer.server.http.APIReply;
 import szyszka.it.friendlocalizer.server.http.FriedLocatorAPI;
+import szyszka.it.friendlocalizer.server.users.User;
 
 import static java.net.HttpURLConnection.HTTP_OK;
 
@@ -37,7 +38,7 @@ public class AddAsFriendTask extends AsyncTask<Integer, Void, APIReply> {
     protected APIReply doInBackground(Integer... params) {
         try {
             String url = api.API_URL + ADD_FRIEND_URL + ADD_FRIEND_URL_SUFFIX + params[0];
-            return api.addAsFriend(new URL(url));
+            return api.addAsFriend(new URL(url), User.Session.KEY);
         } catch (MalformedURLException e) {
             Log.e(TAG, e.getMessage());
             return APIReply.NO_REPLY;

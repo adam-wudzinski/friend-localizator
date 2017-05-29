@@ -36,6 +36,12 @@ public class FriedLocatorAPI implements Parcelable{
         public static final String GET_USERS_URL_KEY = "get_users_url";
         public static final String LOGIN_URL_KEY = "login_url";
         public static final String FRIENDS_URL_KEY = "on_friends_actions_url";
+        public static final String LOCATION_URL_KEY = "location_url";
+        public static final String FRIENDS_LOCATIONS_KEY = "friends_locations_url";
+
+        public static final String SEARCH_USERS_SUFFIX = "search_users_suffix";
+        public static final String ADD_REMOVE_FRIENDS_SUFFIX = "add_remove_friends_suffix";
+        public static final String SHARE_LOCATION_SUFFIX = "share_location_suffix";
     }
 
     private static final String TAG = FriedLocatorAPI.class.getSimpleName();
@@ -73,12 +79,12 @@ public class FriedLocatorAPI implements Parcelable{
         }
     };
 
-    public APIReply unFriend(URL unfriendURL) {
+    public APIReply getAvaibleFriendsLocations(URL getLocations, String sessionKey) {
         BufferedReader reader = null;
         try {
-            connection = (HttpURLConnection) unfriendURL.openConnection();
-            connection.setRequestMethod("DELETE");
-            connection.setRequestProperty("Authorization", User.Session.KEY);
+            connection = (HttpURLConnection) getLocations.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setRequestProperty("Authorization", sessionKey);
 
             reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
@@ -96,13 +102,87 @@ public class FriedLocatorAPI implements Parcelable{
         }
     }
 
-    public APIReply addAsFriend(URL addURL) {
+    public APIReply provideMyLocation(URL provideMyLocation, String sessionKey, String locationJson) {
+        BufferedReader reader = null;
+        DataOutputStream writer = null;
+        try {
+            connection = (HttpURLConnection) provideMyLocation.openConnection();
+            connection.setRequestMethod("PUT");
+            connection.setRequestProperty("Authorization", sessionKey);
+
+            writer = new DataOutputStream(connection.getOutputStream());
+            writer.writeBytes(locationJson);
+
+            reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+            return new APIReply(
+                    readConnection(reader),
+                    connection.getResponseCode(),
+                    null
+            );
+
+        } catch (IOException e) {
+            Log.e(TAG, e.getMessage());
+            return APIReply.NO_REPLY;
+        } finally {
+            closeConnection(writer, reader);
+        }
+    }
+
+    public APIReply shareLocation(String requestedMethod, URL shareLocation, String sessionKey) {
+        BufferedReader reader = null;
+        try {
+            connection = (HttpURLConnection) shareLocation.openConnection();
+            connection.setRequestMethod(requestedMethod);
+            connection.setRequestProperty("Authorization", sessionKey);
+
+            reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+            return new APIReply(
+                    readConnection(reader),
+                    connection.getResponseCode(),
+                    null
+            );
+
+        } catch (IOException e) {
+            Log.e(TAG, e.getMessage());
+            return APIReply.NO_REPLY;
+        } finally {
+            closeConnection(null, reader);
+        }
+
+    }
+
+    public APIReply unFriend(URL unfriendURL, String sessionKey) {
+        BufferedReader reader = null;
+        try {
+            connection = (HttpURLConnection) unfriendURL.openConnection();
+            connection.setRequestMethod("DELETE");
+            connection.setRequestProperty("Authorization", sessionKey);
+
+            reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+            return new APIReply(
+                    readConnection(reader),
+                    connection.getResponseCode(),
+                    null
+            );
+
+        } catch (IOException e) {
+            Log.e(TAG, e.getMessage());
+            return APIReply.NO_REPLY;
+        } finally {
+            closeConnection(null, reader);
+        }
+    }
+
+    public APIReply addAsFriend(URL addURL, String sessionKey) {
         BufferedReader reader = null;
 
         try {
             connection = (HttpURLConnection) addURL.openConnection();
             connection.setRequestMethod("POST");
-            connection.setRequestProperty("Authorization", User.Session.KEY);
+            connection.setRequestProperty("Authorization", sessionKey);
 
             reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
@@ -120,12 +200,12 @@ public class FriedLocatorAPI implements Parcelable{
         }
     }
 
-    public APIReply searchUsers(URL searchURL) {
+    public APIReply searchUsers(URL searchURL, String sessionKey) {
         BufferedReader reader = null;
         try {
             connection = (HttpURLConnection) searchURL.openConnection();
             connection.setRequestMethod("GET");
-            connection.setRequestProperty("Authorization", User.Session.KEY);
+            connection.setRequestProperty("Authorization", sessionKey);
             Log.i(TAG, User.Session.KEY + " " + connection.getResponseCode());
 
             reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));

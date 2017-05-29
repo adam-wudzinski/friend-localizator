@@ -53,6 +53,7 @@ public class UserActivity extends FragmentActivity {
     private TabLayout tabLayout;
     private ImageButton search;
     private ImageView userPicture;
+    private ImageView logout;
 
     private UserDTO user;
     private Properties apiConfig;
@@ -96,6 +97,9 @@ public class UserActivity extends FragmentActivity {
 
         search = (ImageButton) findViewById(R.id.searchFriendsButton);
         search.setImageResource(R.drawable.ic_search);
+
+        logout = (ImageView) findViewById(R.id.logout);
+        logout.setImageResource(R.drawable.ic_logout);
 
         pages = (ViewPager) findViewById(R.id.userPages);
         pages.setAdapter(userPagerAdapter);

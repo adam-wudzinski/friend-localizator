@@ -41,7 +41,7 @@ public class AllUsersAdapter extends ArrayAdapter<UserDTO> implements UserAdapte
                 rowView.findViewById(R.id.friendName),
                 rowView.findViewById(R.id.friendEmail),
                 rowView.findViewById(R.id.addRemoveFriend),
-                rowView.findViewById(R.id.locateFriend)
+                rowView.findViewById(R.id.allowLocatingMe)
         );
 
         UserDTO user = getItem(position);
@@ -49,7 +49,7 @@ public class AllUsersAdapter extends ArrayAdapter<UserDTO> implements UserAdapte
         handle.friendIcon.setImageResource(R.mipmap.ic_user_default);
         handle.friendName.setText(user.getName() + " " + user.getSurname());
         handle.friendEmail.setText(user.getEmail());
-        handle.locateFriend.setImageResource(R.drawable.ic_inactive_locate_friend);
+        handle.allowLocatingMe.setImageResource(R.drawable.ic_inactive_locate_friend);
         handle.addRemoveFriend.setImageResource(R.drawable.ic_add_as_friend);
 
         initActions(handle, user);
@@ -65,15 +65,15 @@ public class AllUsersAdapter extends ArrayAdapter<UserDTO> implements UserAdapte
         public ImageView friendIcon;
         public TextView friendName;
         public TextView friendEmail;
-        public ImageView locateFriend;
+        public ImageView allowLocatingMe;
         public ImageView addRemoveFriend;
 
-        public ViewHandle(View friendIcon, View friendName, View friendEmail, View addRemoveFriend, View locateFriend) {
+        public ViewHandle(View friendIcon, View friendName, View friendEmail, View addRemoveFriend, View allowLocatingMe) {
             this.friendIcon = (ImageView) friendIcon;
             this.friendName = (TextView) friendName;
             this.friendEmail = (TextView) friendEmail;
             this.addRemoveFriend = (ImageView) addRemoveFriend;
-            this.locateFriend = (ImageView) locateFriend;
+            this.allowLocatingMe = (ImageView) allowLocatingMe;
         }
     }
 

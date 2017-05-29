@@ -2,9 +2,9 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="match_parent">
 
     <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -13,29 +13,45 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
-        android:titleTextColor="@color/backgroundWhite"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        android:titleTextColor="@color/backgroundWhite"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-        <ImageButton
-            android:id="@+id/searchFriendsButton"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignTop="@+id/searchFriendsText"
-            android:backgroundTint="@color/colorPrimary" />
 
-        <EditText
-            android:id="@+id/searchFriendsText"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_toEndOf="@+id/searchFriends"
-            android:ems="10"
-            android:textColor="@color/backgroundWhite"
-            android:inputType="textPersonName"
-            android:hint="@string/search_for_friends" />
+            android:paddingEnd="10dp">
 
+            <ImageButton
+                android:id="@+id/searchFriendsButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_alignTop="@+id/searchFriendsText"
+                android:backgroundTint="@color/colorPrimary" />
+
+            <EditText
+                android:id="@+id/searchFriendsText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_toEndOf="@+id/searchFriendsButton"
+                android:layout_centerVertical="true"
+                android:ems="10"
+                android:hint="@string/search_for_friends"
+                android:inputType="textPersonName"
+                android:textColor="@color/backgroundWhite" />
+
+            <ImageView
+                android:id="@+id/logout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_logout"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true" />
+        </RelativeLayout>
 
     </android.support.v7.widget.Toolbar>
 
@@ -43,8 +59,8 @@
         android:id="@+id/personalDataLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:layout_marginTop="55dp">
+        android:layout_marginTop="55dp"
+        android:padding="10dp">
 
         <ImageView
             android:id="@+id/friendIcon"
@@ -61,8 +77,8 @@
             android:layout_above="@+id/changePassword"
             android:layout_alignParentStart="true"
             android:layout_marginBottom="14dp"
-            android:textAllCaps="true"
             android:text="@string/ul_user_name"
+            android:textAllCaps="true"
             android:textSize="@dimen/large_font_size" />
 
         <Button
@@ -93,10 +109,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimary"
-                app:tabTextColor="@color/backgroundWhite"
+                app:tabGravity="fill"
                 app:tabIndicatorColor="@color/pink"
                 app:tabMode="fixed"
-                app:tabGravity="fill" />
+                app:tabTextColor="@color/backgroundWhite" />
 
         </LinearLayout>
 
@@ -104,7 +120,7 @@
             android:id="@+id/userPages"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:context=".activities.UserActivity"/>
+            tools:context=".activities.UserActivity" />
 
     </LinearLayout>
 

@@ -10,7 +10,7 @@ import java.util.List;
 
 import szyszka.it.friendlocalizer.R;
 import szyszka.it.friendlocalizer.activities.UserActivity;
-import szyszka.it.friendlocalizer.activities.fragments.listeners.AddAsFriendListener;
+import szyszka.it.friendlocalizer.activities.fragments.listeners.ShareLocationListener;
 import szyszka.it.friendlocalizer.activities.fragments.listeners.UnfriendListener;
 import szyszka.it.friendlocalizer.server.users.UserDTO;
 
@@ -40,7 +40,7 @@ public class FriendsAdapter extends ArrayAdapter<UserDTO> implements UserAdapter
                 rowView.findViewById(R.id.friendName),
                 rowView.findViewById(R.id.friendEmail),
                 rowView.findViewById(R.id.addRemoveFriend),
-                rowView.findViewById(R.id.locateFriend)
+                rowView.findViewById(R.id.allowLocatingMe)
         );
 
         final UserDTO user = getItem(position);
@@ -51,7 +51,7 @@ public class FriendsAdapter extends ArrayAdapter<UserDTO> implements UserAdapter
         handle.friendEmail.setText(user.getEmail());
 
         handle.addRemoveFriend.setImageResource(R.drawable.ic_minus);
-        handle.locateFriend.setImageResource(R.drawable.ic_active_locate_friend);
+        handle.allowLocatingMe.setImageResource(R.drawable.ic_share_location);
 
         initActions(handle, user);
 
@@ -60,6 +60,14 @@ public class FriendsAdapter extends ArrayAdapter<UserDTO> implements UserAdapter
 
     private void initActions(ViewHandle handle, UserDTO user) {
         handle.addRemoveFriend.setOnClickListener(new UnfriendListener(activity, user.getId()));
+        handle.allowLocatingMe.setOnClickListener(
+                new ShareLocationListener(
+                        activity,
+                        user.getId(),
+                        ShareLocationListener.SHARE_LOCATION,
+                        handle.allowLocatingMe
+                )
+        );
     }
 
     @Override

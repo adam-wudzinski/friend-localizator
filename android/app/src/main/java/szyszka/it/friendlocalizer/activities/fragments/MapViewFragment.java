@@ -81,8 +81,7 @@ public class MapViewFragment extends Fragment {
             }, REQUEST_PERMISSIONS_CODE);
             return;
         } else {
-            Log.i(TAG, "location manager");
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 0, new MyLocationListener());
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 0, new MyLocationListener());
         }
     }
 
@@ -91,8 +90,7 @@ public class MapViewFragment extends Fragment {
         switch (requestCode) {
             case REQUEST_PERMISSIONS_CODE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Log.i(TAG, "location manager");
-                    locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 0, new MyLocationListener());
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 0, new MyLocationListener());
                 }
                 break;
             }

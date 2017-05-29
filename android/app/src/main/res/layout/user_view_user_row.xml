@@ -42,7 +42,7 @@
         android:layout_height="60dp"/>
 
     <ImageView
-        android:id="@+id/locateFriend"
+        android:id="@+id/allowLocatingMe"
         android:layout_width="60dp"
         android:layout_height="60dp"/>
 

@@ -10,6 +10,7 @@ import java.util.Properties;
 import szyszka.it.friendlocalizer.activities.UserActivity;
 import szyszka.it.friendlocalizer.server.http.APIReply;
 import szyszka.it.friendlocalizer.server.http.FriedLocatorAPI;
+import szyszka.it.friendlocalizer.server.users.User;
 
 import static java.net.HttpURLConnection.HTTP_OK;
 
@@ -21,14 +22,15 @@ public class UnfriendTask extends AsyncTask<Integer, Void, APIReply> {
 
     public static final String TAG = UnfriendTask.class.getSimpleName();
 
-    private final String UNFRIEND_URL_SUFFIX = "?id=";
-    private final String UNFRIEND_URL;
+    private final String SUFFIX;
+    private final String URL;
 
     private FriedLocatorAPI api;
     private UserActivity activity;
 
     public UnfriendTask(Properties apiConfig, FriedLocatorAPI api, UserActivity activity) {
-        this.UNFRIEND_URL = apiConfig.getProperty(FriedLocatorAPI.Keys.FRIENDS_URL_KEY);
+        this.URL = apiConfig.getProperty(FriedLocatorAPI.Keys.FRIENDS_URL_KEY);
+        this.SUFFIX = apiConfig.getProperty(FriedLocatorAPI.Keys.ADD_REMOVE_FRIENDS_SUFFIX);
         this.api = api;
         this.activity = activity;
     }
@@ -36,8 +38,8 @@ public class UnfriendTask extends AsyncTask<Integer, Void, APIReply> {
     @Override
     protected APIReply doInBackground(Integer... params) {
         try {
-            String url = api.API_URL + UNFRIEND_URL + UNFRIEND_URL_SUFFIX + params[0];
-            return api.unFriend(new URL(url));
+            String url = api.API_URL + URL + SUFFIX + params[0];
+            return api.unFriend(new URL(url), User.Session.KEY);
         } catch (MalformedURLException e) {
             Log.e(TAG, e.getMessage());
             return APIReply.NO_REPLY;

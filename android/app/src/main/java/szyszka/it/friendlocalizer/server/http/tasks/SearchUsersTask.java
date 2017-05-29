@@ -13,6 +13,7 @@ import szyszka.it.friendlocalizer.activities.adapters.RequiredSearch;
 import szyszka.it.friendlocalizer.activities.adapters.UserAdapter;
 import szyszka.it.friendlocalizer.server.http.APIReply;
 import szyszka.it.friendlocalizer.server.http.FriedLocatorAPI;
+import szyszka.it.friendlocalizer.server.users.User;
 import szyszka.it.friendlocalizer.server.users.UserDTO;
 
 import static java.net.HttpURLConnection.HTTP_OK;
@@ -72,14 +73,14 @@ public class SearchUsersTask extends AsyncTask<RequiredSearch, Void, APIReply> {
         try {
             switch (extraResource.getRequirement()) {
                 case FRIENDS: {
-                    reply = api.searchUsers(new URL(api.API_URL + searchURL));
+                    reply = api.searchUsers(new URL(api.API_URL + searchURL), User.Session.KEY);
                     break;
                 }
                 case USERS: {
                     String searchPhrase = extraResource.getSearchPhrase();
                     searchURL = searchPhrase == null ? searchURL : searchURL + api.SEARCH_USERS_URL_SUFFIX + searchPhrase;
 
-                    reply = api.searchUsers(new URL(api.API_URL + searchURL));
+                    reply = api.searchUsers(new URL(api.API_URL + searchURL), User.Session.KEY);
                     break;
                 }
             }
