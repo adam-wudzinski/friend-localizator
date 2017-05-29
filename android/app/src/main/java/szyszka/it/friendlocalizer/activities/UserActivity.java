@@ -1,6 +1,7 @@
 package szyszka.it.friendlocalizer.activities;
 
 import android.content.Context;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -24,6 +25,7 @@ import szyszka.it.friendlocalizer.activities.adapters.AllUsersAdapter;
 import szyszka.it.friendlocalizer.activities.adapters.FriendsAdapter;
 import szyszka.it.friendlocalizer.activities.fragments.AllUsersFragment;
 import szyszka.it.friendlocalizer.activities.fragments.FriendsFragment;
+import szyszka.it.friendlocalizer.activities.fragments.MapViewFragment;
 import szyszka.it.friendlocalizer.common.readers.PropertiesReader;
 import szyszka.it.friendlocalizer.server.http.FriedLocatorAPI;
 import szyszka.it.friendlocalizer.server.users.UserDTO;
@@ -38,9 +40,11 @@ public class UserActivity extends FragmentActivity {
 
     public static final int MY_FRIENDS_PAGE = 0;
     public static final int SEARCH_FOR_FRIENDS_PAGE = 1;
+    public static final int LOCATE_FRIENDS_PAGE = 2;
 
     private FriendsFragment friendsFragment;
     private AllUsersFragment allUsersFragment;
+    private MapViewFragment locateFriends;
     private UserPagerAdapter userPagerAdapter;
 
     private TextView userName;
@@ -113,6 +117,9 @@ public class UserActivity extends FragmentActivity {
         allUsersFragment.setAdapter(new AllUsersAdapter(context, 0, new ArrayList<UserDTO>(), this));
         allUsersFragment.setSearchUsersTaskArguments(apiConfig, api);
 
+        locateFriends = new MapViewFragment();
+        locateFriends.setLocationManager((LocationManager) context.getSystemService(LOCATION_SERVICE));
+
         userPagerAdapter = new UserPagerAdapter(getSupportFragmentManager());
     }
 
@@ -160,6 +167,9 @@ public class UserActivity extends FragmentActivity {
             case SEARCH_FOR_FRIENDS_PAGE : {
                 selectPage(SEARCH_FOR_FRIENDS_PAGE);
                 break;
+            }
+            case LOCATE_FRIENDS_PAGE : {
+                selectPage(LOCATE_FRIENDS_PAGE);
             }
             default: {
                 selectPage(MY_FRIENDS_PAGE);
@@ -228,6 +238,9 @@ public class UserActivity extends FragmentActivity {
                 case SEARCH_FOR_FRIENDS_PAGE: {
                     return allUsersFragment;
                 }
+                case LOCATE_FRIENDS_PAGE: {
+                    return locateFriends;
+                }
                 default: {
                     return friendsFragment;
                 }
@@ -236,7 +249,7 @@ public class UserActivity extends FragmentActivity {
 
         @Override
         public int getCount() {
-            return 2;
+            return tabTitles.length;
         }
 
         @Override
