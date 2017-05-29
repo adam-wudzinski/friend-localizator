@@ -45,12 +45,12 @@ public class Application {
             admin.friendWith(pawel);
             admin.friendWith(marek);
 
-            pawel.setLatitude(2.0);
-            pawel.setLongitude(2.0);
-            admin.setLatitude(1.0);
-            admin.setLongitude(1.0);
-            marek.setLatitude(3.0);
-            marek.setLongitude(3.0);
+            pawel.setLatitude(51.1464563475633);
+            pawel.setLongitude(17.0464563475633);
+            admin.setLatitude(51.13545633);
+            admin.setLongitude(17.01754513233);
+            marek.setLatitude(51.1703423042);
+            marek.setLongitude(17.049294912921);
 
             pawel.shareLocationWith(marek);
             admin.shareLocationWith(pawel);
