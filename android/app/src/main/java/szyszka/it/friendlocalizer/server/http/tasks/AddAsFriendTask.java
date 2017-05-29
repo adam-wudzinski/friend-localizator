@@ -49,6 +49,7 @@ public class AddAsFriendTask extends AsyncTask<Integer, Void, APIReply> {
         switch (apiReply.getStatusCode()) {
             case HTTP_OK: {
                 activity.reloadPageAdapter();
+                activity.setCurrentPage(UserActivity.SEARCH_FOR_FRIENDS_PAGE);
                 break;
             }
             default: {

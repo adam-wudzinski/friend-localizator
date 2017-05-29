@@ -49,6 +49,7 @@ public class UnfriendTask extends AsyncTask<Integer, Void, APIReply> {
         switch (apiReply.getStatusCode()) {
             case HTTP_OK: {
                 activity.reloadPageAdapter();
+                activity.setCurrentPage(UserActivity.MY_FRIENDS_PAGE);
                 break;
             } default: {
                 Log.e(TAG, "Failed to delete friend. HTTP status: " + apiReply.getStatusCode());

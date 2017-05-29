@@ -36,8 +36,8 @@ public class UserActivity extends FragmentActivity {
 
     public static final String TAG = UserActivity.class.getSimpleName();
 
-    private static final int MY_FRIENDS_PAGE = 0;
-    private static final int SEARCH_FOR_FRIENDS_PAGE = 1;
+    public static final int MY_FRIENDS_PAGE = 0;
+    public static final int SEARCH_FOR_FRIENDS_PAGE = 1;
 
     private FriendsFragment friendsFragment;
     private AllUsersFragment allUsersFragment;
@@ -149,6 +149,22 @@ public class UserActivity extends FragmentActivity {
             }
         });
 
+    }
+
+    public void setCurrentPage(int pageId) {
+        switch (pageId) {
+            case MY_FRIENDS_PAGE : {
+                selectPage(MY_FRIENDS_PAGE);
+                break;
+            }
+            case SEARCH_FOR_FRIENDS_PAGE : {
+                selectPage(SEARCH_FOR_FRIENDS_PAGE);
+                break;
+            }
+            default: {
+                selectPage(MY_FRIENDS_PAGE);
+            }
+        }
     }
 
     public void reloadPageAdapter() {
