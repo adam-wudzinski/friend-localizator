@@ -1,6 +1,7 @@
 package szyszka.it.friendlocalizer.server.http.tasks;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -8,10 +9,10 @@ import java.util.Properties;
 
 import szyszka.it.friendlocalizer.location.MyLocation;
 import szyszka.it.friendlocalizer.server.http.APIReply;
-import szyszka.it.friendlocalizer.server.http.FriedLocatorAPI;
+import szyszka.it.friendlocalizer.server.http.FriendLocatorAPI;
 import szyszka.it.friendlocalizer.server.users.User;
 
-import static szyszka.it.friendlocalizer.location.MyLocation.getJSON;
+import static szyszka.it.friendlocalizer.location.MyLocation.getSimpleJSON;
 
 /**
  * Created by Squier on 29.05.2017.
@@ -19,12 +20,14 @@ import static szyszka.it.friendlocalizer.location.MyLocation.getJSON;
 
 public class ProvideMyLocation extends AsyncTask<MyLocation, Void, APIReply> {
 
+    public static final String TAG = ProvideMyLocation.class.getSimpleName();
+
     private final String URL;
 
-    private FriedLocatorAPI api;
+    private FriendLocatorAPI api;
 
-    public ProvideMyLocation(Properties apiConfig, FriedLocatorAPI api) {
-        URL = apiConfig.getProperty(FriedLocatorAPI.Keys.LOCATION_URL_KEY);
+    public ProvideMyLocation(Properties apiConfig, FriendLocatorAPI api) {
+        URL = apiConfig.getProperty(FriendLocatorAPI.Keys.LOCATION_URL_KEY);
         this.api = api;
     }
 
@@ -32,7 +35,8 @@ public class ProvideMyLocation extends AsyncTask<MyLocation, Void, APIReply> {
     protected APIReply doInBackground(MyLocation... params) {
         APIReply apiReply = APIReply.NO_REPLY;
             try {
-                apiReply = api.provideMyLocation(new URL(api.API_URL + URL), User.Session.KEY, getJSON(params[0]));
+                apiReply = api.provideMyLocation(new URL(api.API_URL + URL), User.Session.KEY, getSimpleJSON(params[0]));
+                Log.i(TAG, "Location: " + getSimpleJSON(params[0]));
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }

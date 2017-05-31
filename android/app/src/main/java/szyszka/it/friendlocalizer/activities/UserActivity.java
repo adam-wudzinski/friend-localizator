@@ -1,6 +1,7 @@
 package szyszka.it.friendlocalizer.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -27,7 +28,8 @@ import szyszka.it.friendlocalizer.activities.fragments.AllUsersFragment;
 import szyszka.it.friendlocalizer.activities.fragments.FriendsFragment;
 import szyszka.it.friendlocalizer.activities.fragments.MapViewFragment;
 import szyszka.it.friendlocalizer.common.readers.PropertiesReader;
-import szyszka.it.friendlocalizer.server.http.FriedLocatorAPI;
+import szyszka.it.friendlocalizer.server.http.FriendLocatorAPI;
+import szyszka.it.friendlocalizer.server.users.User;
 import szyszka.it.friendlocalizer.server.users.UserDTO;
 
 /**
@@ -57,7 +59,7 @@ public class UserActivity extends FragmentActivity {
 
     private UserDTO user;
     private Properties apiConfig;
-    private FriedLocatorAPI api;
+    private FriendLocatorAPI api;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +82,7 @@ public class UserActivity extends FragmentActivity {
     }
 
     private void loadConfig() {
-        apiConfig = new PropertiesReader(getApplicationContext(), new Properties()).readMyProperties(FriedLocatorAPI.API_CONFIG);
+        apiConfig = new PropertiesReader(getApplicationContext(), new Properties()).readMyProperties(FriendLocatorAPI.API_CONFIG);
     }
 
     private void fillView() {
@@ -129,6 +131,16 @@ public class UserActivity extends FragmentActivity {
     }
 
     private void initActions() {
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                User.Session.KEY = "";
+                locateFriends.stopLocationUpdates();
+                Intent homeScreen = new Intent(getApplicationContext(), HelloActivity.class);
+                startActivity(homeScreen);
+            }
+        });
 
         searchForFriends.addTextChangedListener(new TextWatcher() {
             @Override
@@ -222,7 +234,7 @@ public class UserActivity extends FragmentActivity {
         return apiConfig;
     }
 
-    public FriedLocatorAPI getApi() {
+    public FriendLocatorAPI getApi() {
         return api;
     }
 

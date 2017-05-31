@@ -9,7 +9,7 @@ import java.util.Properties;
 
 import szyszka.it.friendlocalizer.activities.UserActivity;
 import szyszka.it.friendlocalizer.server.http.APIReply;
-import szyszka.it.friendlocalizer.server.http.FriedLocatorAPI;
+import szyszka.it.friendlocalizer.server.http.FriendLocatorAPI;
 import szyszka.it.friendlocalizer.server.users.User;
 
 import static java.net.HttpURLConnection.HTTP_OK;
@@ -25,12 +25,12 @@ public class UnfriendTask extends AsyncTask<Integer, Void, APIReply> {
     private final String SUFFIX;
     private final String URL;
 
-    private FriedLocatorAPI api;
+    private FriendLocatorAPI api;
     private UserActivity activity;
 
-    public UnfriendTask(Properties apiConfig, FriedLocatorAPI api, UserActivity activity) {
-        this.URL = apiConfig.getProperty(FriedLocatorAPI.Keys.FRIENDS_URL_KEY);
-        this.SUFFIX = apiConfig.getProperty(FriedLocatorAPI.Keys.ADD_REMOVE_FRIENDS_SUFFIX);
+    public UnfriendTask(Properties apiConfig, FriendLocatorAPI api, UserActivity activity) {
+        this.URL = apiConfig.getProperty(FriendLocatorAPI.Keys.FRIENDS_URL_KEY);
+        this.SUFFIX = apiConfig.getProperty(FriendLocatorAPI.Keys.ADD_REMOVE_FRIENDS_SUFFIX);
         this.api = api;
         this.activity = activity;
     }

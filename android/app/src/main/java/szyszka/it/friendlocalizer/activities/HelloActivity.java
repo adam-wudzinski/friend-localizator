@@ -13,15 +13,15 @@ import java.util.Properties;
 import szyszka.it.friendlocalizer.R;
 import szyszka.it.friendlocalizer.common.forms.LoginForm;
 import szyszka.it.friendlocalizer.common.readers.PropertiesReader;
-import szyszka.it.friendlocalizer.server.http.FriedLocatorAPI;
+import szyszka.it.friendlocalizer.server.http.FriendLocatorAPI;
 import szyszka.it.friendlocalizer.server.http.tasks.LoginTask;
 
-import static szyszka.it.friendlocalizer.server.http.FriedLocatorAPI.API_CONFIG;
+import static szyszka.it.friendlocalizer.server.http.FriendLocatorAPI.API_CONFIG;
 
 
 public class HelloActivity extends AppCompatActivity {
 
-    private FriedLocatorAPI api;
+    private FriendLocatorAPI api;
     private Properties apiConfig;
     private Toolbar toolbar;
 
@@ -46,7 +46,7 @@ public class HelloActivity extends AppCompatActivity {
     }
 
     private void initApi() {
-        api = new FriedLocatorAPI(apiConfig);
+        api = new FriendLocatorAPI(apiConfig);
     }
 
     private LoginForm getLoginForm() {

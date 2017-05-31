@@ -33,6 +33,7 @@ import szyszka.it.friendlocalizer.activities.UserActivity;
 import szyszka.it.friendlocalizer.location.Locations;
 import szyszka.it.friendlocalizer.location.MyLocation;
 import szyszka.it.friendlocalizer.server.http.tasks.LocateMyFriends;
+import szyszka.it.friendlocalizer.server.http.tasks.ProvideMyLocation;
 import szyszka.it.friendlocalizer.server.users.LocalizedUser;
 
 /**
@@ -46,8 +47,8 @@ public class MapViewFragment extends Fragment {
     public static final int REQUEST_PERMISSIONS_CODE = 1301;
 
     private LocationManager locationManager;
+    private MyLocationListener myLocationListener = null;
     private MapView mapView;
-    private Marker userMarker;
     private GoogleMap map;
     private Locations locations = new Locations(new MyLocation(), new ArrayList<LocalizedUser>(), new ArrayList<Marker>());
     private UserActivity userActivity;
@@ -78,6 +79,10 @@ public class MapViewFragment extends Fragment {
         return rootView;
     }
 
+    public void stopLocationUpdates() {
+        locationManager.removeUpdates(myLocationListener);
+    }
+
     public void setUserActivity(UserActivity userActivity) {
         this.userActivity = userActivity;
     }
@@ -95,8 +100,16 @@ public class MapViewFragment extends Fragment {
             }, REQUEST_PERMISSIONS_CODE);
             return;
         } else {
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000, 0, new MyLocationListener());
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 0, getListener());
         }
+    }
+
+    @NonNull
+    private MyLocationListener getListener() {
+        if(myLocationListener == null) {
+            myLocationListener = new MyLocationListener();
+        }
+        return myLocationListener;
     }
 
     @Override
@@ -104,7 +117,7 @@ public class MapViewFragment extends Fragment {
         switch (requestCode) {
             case REQUEST_PERMISSIONS_CODE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000, 0, new MyLocationListener());
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 0, getListener());
                 }
                 break;
             }
@@ -144,10 +157,6 @@ public class MapViewFragment extends Fragment {
         @Override
         public void onLocationChanged(Location location) {
 
-            if (userMarker != null) {
-                userMarker.remove();
-            }
-
             userLocation.setLatitude(location.getLatitude());
             userLocation.setLongitude(location.getLongitude());
             locations.setUserLocation(userLocation);
@@ -168,6 +177,12 @@ public class MapViewFragment extends Fragment {
             );
 
             locateMyFriends.execute();
+
+            ProvideMyLocation provideMyLocation = new ProvideMyLocation(
+                    userActivity.getApiConfig(), userActivity.getApi()
+            );
+
+            provideMyLocation.execute(locations.getUserLocation());
 
         }
 

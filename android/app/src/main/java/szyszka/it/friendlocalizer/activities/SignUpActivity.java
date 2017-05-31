@@ -7,18 +7,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Properties;
 
 import szyszka.it.friendlocalizer.R;
 import szyszka.it.friendlocalizer.common.forms.RegisterForm;
 import szyszka.it.friendlocalizer.common.readers.PropertiesReader;
-import szyszka.it.friendlocalizer.server.http.FriedLocatorAPI;
+import szyszka.it.friendlocalizer.server.http.FriendLocatorAPI;
 import szyszka.it.friendlocalizer.server.http.tasks.RegisterTask;
 import szyszka.it.friendlocalizer.server.users.User;
 
-import static szyszka.it.friendlocalizer.server.http.FriedLocatorAPI.API_CONFIG;
+import static szyszka.it.friendlocalizer.server.http.FriendLocatorAPI.API_CONFIG;
 
 /**
  * Created by Rafał on 30.03.2017.
@@ -30,7 +28,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     private User newUser;
     private RegisterForm registerForm;
-    private FriedLocatorAPI api;
+    private FriendLocatorAPI api;
     private Properties apiConfig;
 
     @Override

@@ -6,17 +6,13 @@ import android.util.Base64;
 import android.util.Log;
 
 import java.io.BufferedReader;
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Properties;
 
-import szyszka.it.friendlocalizer.common.forms.LoginForm;
-import szyszka.it.friendlocalizer.server.http.errors.Error;
 import szyszka.it.friendlocalizer.server.users.User;
 
 import static szyszka.it.friendlocalizer.server.users.User.getJSON;
@@ -25,7 +21,7 @@ import static szyszka.it.friendlocalizer.server.users.User.getJSON;
  * Created by Squier on 19.04.2017.
  */
 
-public class FriedLocatorAPI implements Parcelable{
+public class FriendLocatorAPI implements Parcelable{
 
     public static final String API_CONFIG = "api_config.properties";
     public final String SEARCH_USERS_URL_SUFFIX = "?search=";
@@ -44,16 +40,16 @@ public class FriedLocatorAPI implements Parcelable{
         public static final String SHARE_LOCATION_SUFFIX = "share_location_suffix";
     }
 
-    private static final String TAG = FriedLocatorAPI.class.getSimpleName();
+    private static final String TAG = FriendLocatorAPI.class.getSimpleName();
 
     public final String API_URL;
     private HttpURLConnection connection = null;
 
-    public FriedLocatorAPI(Properties apiConfig) {
+    public FriendLocatorAPI(Properties apiConfig) {
         API_URL = apiConfig.getProperty(Keys.API_URL_KEY);
     }
 
-    private FriedLocatorAPI(Parcel parcel) {
+    private FriendLocatorAPI(Parcel parcel) {
         API_URL = parcel.readString();
     }
 
@@ -67,15 +63,15 @@ public class FriedLocatorAPI implements Parcelable{
         dest.writeString(API_URL);
     }
 
-    public static final Parcelable.Creator<FriedLocatorAPI> CREATOR  = new Parcelable.Creator<FriedLocatorAPI>() {
+    public static final Parcelable.Creator<FriendLocatorAPI> CREATOR  = new Parcelable.Creator<FriendLocatorAPI>() {
         @Override
-        public FriedLocatorAPI createFromParcel(Parcel source) {
-            return new FriedLocatorAPI(source);
+        public FriendLocatorAPI createFromParcel(Parcel source) {
+            return new FriendLocatorAPI(source);
         }
 
         @Override
-        public FriedLocatorAPI[] newArray(int size) {
-            return new FriedLocatorAPI[size];
+        public FriendLocatorAPI[] newArray(int size) {
+            return new FriendLocatorAPI[size];
         }
     };
 
@@ -109,6 +105,7 @@ public class FriedLocatorAPI implements Parcelable{
             connection = (HttpURLConnection) provideMyLocation.openConnection();
             connection.setRequestMethod("PUT");
             connection.setRequestProperty("Authorization", sessionKey);
+            connection.setRequestProperty("Content-Type", "application/json");
 
             writer = new DataOutputStream(connection.getOutputStream());
             writer.writeBytes(locationJson);
@@ -123,6 +120,7 @@ public class FriedLocatorAPI implements Parcelable{
 
         } catch (IOException e) {
             Log.e(TAG, e.getMessage());
+            e.printStackTrace();
             return APIReply.NO_REPLY;
         } finally {
             closeConnection(writer, reader);

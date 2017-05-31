@@ -1,7 +1,6 @@
 package szyszka.it.friendlocalizer.activities.fragments;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +12,7 @@ import java.util.Properties;
 import szyszka.it.friendlocalizer.R;
 import szyszka.it.friendlocalizer.activities.adapters.FriendsAdapter;
 import szyszka.it.friendlocalizer.activities.adapters.RequiredSearch;
-import szyszka.it.friendlocalizer.server.http.FriedLocatorAPI;
+import szyszka.it.friendlocalizer.server.http.FriendLocatorAPI;
 import szyszka.it.friendlocalizer.server.http.tasks.SearchUsersTask;
 
 import static szyszka.it.friendlocalizer.activities.adapters.RequiredSearch.Requirement.*;
@@ -26,7 +25,7 @@ public class FriendsFragment extends Fragment {
 
     private FriendsAdapter adapter;
     private Properties apiConfig;
-    private FriedLocatorAPI api;
+    private FriendLocatorAPI api;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -49,7 +48,7 @@ public class FriendsFragment extends Fragment {
         this.adapter = adapter;
     }
 
-    public void setSearchUsersTaskArguments(Properties apiConfig, FriedLocatorAPI api) {
+    public void setSearchUsersTaskArguments(Properties apiConfig, FriendLocatorAPI api) {
         this.apiConfig = apiConfig;
         this.api = api;
     }

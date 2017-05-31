@@ -15,12 +15,12 @@ import szyszka.it.friendlocalizer.R;
 import szyszka.it.friendlocalizer.activities.UserActivity;
 import szyszka.it.friendlocalizer.common.forms.LoginForm;
 import szyszka.it.friendlocalizer.server.http.APIReply;
-import szyszka.it.friendlocalizer.server.http.FriedLocatorAPI;
+import szyszka.it.friendlocalizer.server.http.FriendLocatorAPI;
 import szyszka.it.friendlocalizer.server.http.errors.Error;
 import szyszka.it.friendlocalizer.server.users.User;
 
 import static java.net.HttpURLConnection.HTTP_OK;
-import static szyszka.it.friendlocalizer.server.http.FriedLocatorAPI.getSessionKey;
+import static szyszka.it.friendlocalizer.server.http.FriendLocatorAPI.getSessionKey;
 
 /**
  * Created by Squier on 26.04.2017.
@@ -31,14 +31,14 @@ public class LoginTask extends AsyncTask<LoginForm, Void, APIReply> {
     public static final String TAG = LoginTask.class.getSimpleName();
 
     private final String LOGIN_URL;     // on sign in request, friend list will be downloaded
-    private final FriedLocatorAPI api;
+    private final FriendLocatorAPI api;
     private final Context context;
 
     private String sessionKey;
 
 
-    public LoginTask(FriedLocatorAPI api, Context context, Properties apiConfig) {
-        this.LOGIN_URL = apiConfig.getProperty(FriedLocatorAPI.Keys.LOGIN_URL_KEY);
+    public LoginTask(FriendLocatorAPI api, Context context, Properties apiConfig) {
+        this.LOGIN_URL = apiConfig.getProperty(FriendLocatorAPI.Keys.LOGIN_URL_KEY);
         this.api = api;
         this.context = context.getApplicationContext();
     }

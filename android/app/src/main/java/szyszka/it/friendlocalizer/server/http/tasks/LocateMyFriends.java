@@ -3,20 +3,19 @@ package szyszka.it.friendlocalizer.server.http.tasks;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.security.Key;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import szyszka.it.friendlocalizer.location.Locations;
 import szyszka.it.friendlocalizer.server.http.APIReply;
-import szyszka.it.friendlocalizer.server.http.FriedLocatorAPI;
+import szyszka.it.friendlocalizer.server.http.FriendLocatorAPI;
 import szyszka.it.friendlocalizer.server.users.LocalizedUser;
 import szyszka.it.friendlocalizer.server.users.User;
 
@@ -30,11 +29,12 @@ public class LocateMyFriends extends AsyncTask<Void, Void, APIReply> {
 
     private final String URL;
 
-    private FriedLocatorAPI api;
+    private FriendLocatorAPI api;
     private Locations locations;
+    private List<LocalizedUser> friends;
 
-    public LocateMyFriends(Properties apiConfig, FriedLocatorAPI api, Locations locations) {
-        URL = apiConfig.getProperty(FriedLocatorAPI.Keys.FRIENDS_LOCATIONS_KEY);
+    public LocateMyFriends(Properties apiConfig, FriendLocatorAPI api, Locations locations) {
+        URL = apiConfig.getProperty(FriendLocatorAPI.Keys.FRIENDS_LOCATIONS_KEY);
         this.api = api;
         this.locations = locations;
     }
@@ -53,21 +53,38 @@ public class LocateMyFriends extends AsyncTask<Void, Void, APIReply> {
             e.printStackTrace();
         }
 
-        ArrayList<LocalizedUser> friends = LocalizedUser.getFromJson(apiReply.getJSON());
+        friends = LocalizedUser.getFromJson(apiReply.getJSON());
+
+        return apiReply;
+    }
+
+    @Override
+    protected void onPostExecute(APIReply apiReply) {
+        markUserOnMap();
+        try {
+            markFriendsOnMap();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void markFriendsOnMap() {
         if(friends != null) {
-            locations.setFriendsLocations(friends);
+            locations.setFriendsLocations((ArrayList<LocalizedUser>) friends);
             int index = 0;
             for (LocalizedUser user : friends) {
                 Log.i(TAG, "Located friend: " + user.getEmail());
                 Marker friendMarker = locations.getMap().addMarker(new MarkerOptions()
-                    .position(new LatLng(user.getLatitude(), user.getLongitude()))
-                    .title(user.getName() + " " + user.getSurname())
+                        .position(new LatLng(user.getLatitude(), user.getLongitude()))
+                        .title(user.getName() + " " + user.getSurname())
                 );
                 friendMarker.showInfoWindow();
                 locations.setMarker(friendMarker, index);
             }
         }
+    }
 
+    private void markUserOnMap() {
         try {
             locations.setUserMarker(
                     locations.getMap().addMarker(new MarkerOptions()
@@ -79,6 +96,5 @@ public class LocateMyFriends extends AsyncTask<Void, Void, APIReply> {
         } catch (Exception e) {
             Log.e(TAG, "Failed to mark your position: ", e);
         }
-        return apiReply;
     }
 }

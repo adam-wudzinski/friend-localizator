@@ -13,7 +13,7 @@ import java.util.Properties;
 import szyszka.it.friendlocalizer.R;
 import szyszka.it.friendlocalizer.activities.adapters.AllUsersAdapter;
 import szyszka.it.friendlocalizer.activities.adapters.RequiredSearch;
-import szyszka.it.friendlocalizer.server.http.FriedLocatorAPI;
+import szyszka.it.friendlocalizer.server.http.FriendLocatorAPI;
 import szyszka.it.friendlocalizer.server.http.tasks.SearchUsersTask;
 
 import static szyszka.it.friendlocalizer.activities.adapters.RequiredSearch.Requirement.*;
@@ -26,7 +26,7 @@ public class AllUsersFragment extends Fragment {
 
     private AllUsersAdapter adapter;
     private Properties apiConfig;
-    private FriedLocatorAPI api;
+    private FriendLocatorAPI api;
     private String searchPhrase = null;
 
     @Nullable
@@ -48,7 +48,7 @@ public class AllUsersFragment extends Fragment {
         this.adapter = adapter;
     }
 
-    public void setSearchUsersTaskArguments(Properties apiConfig, FriedLocatorAPI api) {
+    public void setSearchUsersTaskArguments(Properties apiConfig, FriendLocatorAPI api) {
         this.apiConfig = apiConfig;
         this.api = api;
     }

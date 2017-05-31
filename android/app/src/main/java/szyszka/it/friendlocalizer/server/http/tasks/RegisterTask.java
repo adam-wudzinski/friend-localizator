@@ -12,9 +12,8 @@ import java.util.Properties;
 
 import szyszka.it.friendlocalizer.R;
 import szyszka.it.friendlocalizer.activities.HelloActivity;
-import szyszka.it.friendlocalizer.activities.UserActivity;
 import szyszka.it.friendlocalizer.server.http.APIReply;
-import szyszka.it.friendlocalizer.server.http.FriedLocatorAPI;
+import szyszka.it.friendlocalizer.server.http.FriendLocatorAPI;
 import szyszka.it.friendlocalizer.server.http.errors.Error;
 import szyszka.it.friendlocalizer.server.users.User;
 
@@ -29,13 +28,13 @@ public class RegisterTask extends AsyncTask<User, Void, APIReply> {
     public static final String TAG = RegisterTask.class.getSimpleName();
     private final String REG_URL;
 
-    private FriedLocatorAPI api;
+    private FriendLocatorAPI api;
     private Context context;
 
-    public RegisterTask(FriedLocatorAPI api, Context context, Properties apiConfig) {
+    public RegisterTask(FriendLocatorAPI api, Context context, Properties apiConfig) {
         this.api = api;
         this.context = context.getApplicationContext();
-        REG_URL = apiConfig.getProperty(FriedLocatorAPI.Keys.REG_URL_KEY);
+        REG_URL = apiConfig.getProperty(FriendLocatorAPI.Keys.REG_URL_KEY);
     }
 
     @Override

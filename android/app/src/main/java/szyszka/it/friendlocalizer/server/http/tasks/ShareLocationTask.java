@@ -7,7 +7,7 @@ import java.net.URL;
 import java.util.Properties;
 
 import szyszka.it.friendlocalizer.server.http.APIReply;
-import szyszka.it.friendlocalizer.server.http.FriedLocatorAPI;
+import szyszka.it.friendlocalizer.server.http.FriendLocatorAPI;
 import szyszka.it.friendlocalizer.server.users.User;
 
 /**
@@ -20,12 +20,12 @@ public class ShareLocationTask extends AsyncTask<Integer, Void, APIReply> {
     private final String URL;
     private final String SUFFIX;
 
-    private FriedLocatorAPI api;
+    private FriendLocatorAPI api;
     private String requestedMethod;
 
-    public ShareLocationTask(Properties apiConfig, FriedLocatorAPI api, String requestedMethod) {
-        URL = apiConfig.getProperty(FriedLocatorAPI.Keys.LOCATION_URL_KEY);
-        SUFFIX = apiConfig.getProperty(FriedLocatorAPI.Keys.SHARE_LOCATION_SUFFIX);
+    public ShareLocationTask(Properties apiConfig, FriendLocatorAPI api, String requestedMethod) {
+        URL = apiConfig.getProperty(FriendLocatorAPI.Keys.LOCATION_URL_KEY);
+        SUFFIX = apiConfig.getProperty(FriendLocatorAPI.Keys.SHARE_LOCATION_SUFFIX);
         this.api = api;
         this.requestedMethod = requestedMethod;
     }

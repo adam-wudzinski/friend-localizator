@@ -37,6 +37,10 @@ public class MyLocation {
         return longitude;
     }
 
+    public static String getSimpleJSON(MyLocation myLocation) {
+        return "{\"latitude\":" + myLocation.getLatitude() + ",\"longitude\":" + myLocation.getLongitude() + "}";
+    }
+
     public static String getJSON(MyLocation myLocation) {
         ObjectMapper mapper = new ObjectMapper();
         try {
@@ -45,6 +49,14 @@ public class MyLocation {
             e.printStackTrace();
         }
         return "{}";
+    }
+
+    @Override
+    public String toString() {
+        return "MyLocation{" +
+                "latitude=" + latitude +
+                ", longitude=" + longitude +
+                '}';
     }
 
     public LatLng getLatLng() {

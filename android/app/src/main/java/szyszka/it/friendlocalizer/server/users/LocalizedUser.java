@@ -6,6 +6,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import szyszka.it.friendlocalizer.location.MyLocation;
 
@@ -31,10 +32,13 @@ public class LocalizedUser {
         this.longitude = longitude;
     }
 
-    public static ArrayList<LocalizedUser> getFromJson(String json) {
+    public LocalizedUser() {
+    }
+
+    public static List<LocalizedUser> getFromJson(String json) {
         ObjectMapper mapper = new ObjectMapper();
         try {
-            return mapper.readValue(json, new TypeReference<ArrayList<LocalizedUser>>(){});
+            return mapper.readValue(json, new TypeReference<List<LocalizedUser>>(){});
         } catch (IOException e) {
             e.printStackTrace();
         }

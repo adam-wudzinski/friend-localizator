@@ -12,7 +12,7 @@ import java.util.Properties;
 import szyszka.it.friendlocalizer.activities.adapters.RequiredSearch;
 import szyszka.it.friendlocalizer.activities.adapters.UserAdapter;
 import szyszka.it.friendlocalizer.server.http.APIReply;
-import szyszka.it.friendlocalizer.server.http.FriedLocatorAPI;
+import szyszka.it.friendlocalizer.server.http.FriendLocatorAPI;
 import szyszka.it.friendlocalizer.server.users.User;
 import szyszka.it.friendlocalizer.server.users.UserDTO;
 
@@ -29,13 +29,13 @@ public class SearchUsersTask extends AsyncTask<RequiredSearch, Void, APIReply> {
     private final String GET_USERS_URL;
     private final String GET_FRIENDS_URL;
 
-    private FriedLocatorAPI api;
+    private FriendLocatorAPI api;
     private ListView list;
     private UserAdapter adapter;
 
-    public SearchUsersTask(Properties apiConfig, FriedLocatorAPI api) {
-        GET_USERS_URL = apiConfig.getProperty(FriedLocatorAPI.Keys.GET_USERS_URL_KEY);
-        GET_FRIENDS_URL = apiConfig.getProperty(FriedLocatorAPI.Keys.FRIENDS_URL_KEY);
+    public SearchUsersTask(Properties apiConfig, FriendLocatorAPI api) {
+        GET_USERS_URL = apiConfig.getProperty(FriendLocatorAPI.Keys.GET_USERS_URL_KEY);
+        GET_FRIENDS_URL = apiConfig.getProperty(FriendLocatorAPI.Keys.FRIENDS_URL_KEY);
         this.api = api;
     }
 
