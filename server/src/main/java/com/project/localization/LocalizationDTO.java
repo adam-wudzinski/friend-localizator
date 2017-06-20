@@ -1,7 +1,7 @@
 package com.project.localization;
 
 /**
- * Created by Adas on 2017-05-17.
+ * Localization DTO class
  */
 public class LocalizationDTO {
     private Double longitude;

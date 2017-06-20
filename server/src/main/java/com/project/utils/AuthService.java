@@ -8,11 +8,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 /**
- * Created by Adas on 2017-05-28.
+ * Util class for authentication
  */
 @Service
 public class AuthService {
 
+    /**
+     * @return logged users email
+     */
     public String getLoggedUserEmail() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return auth.getName();

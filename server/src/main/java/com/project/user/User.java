@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by Adas on 2017-04-18.
+ * User entity class
  */
 @NodeEntity
 public class User {

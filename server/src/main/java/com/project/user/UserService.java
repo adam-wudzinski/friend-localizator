@@ -9,7 +9,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * Created by Adas on 2017-04-25.
+ * Users service class
  */
 @Service
 public class UserService {
@@ -17,12 +17,21 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * Saves User to database
+     * @param user
+     */
     public void saveUser(User user){
         if (userRepository.findByEmail(user.getEmail()) == null) {
             userRepository.save(user);
         }
     }
 
+    /**
+     * Finds users by name
+     * @param name
+     * @return
+     */
     public List<UserDTO> findUsers(String name) {
         if (name == null) {
             name = "";
@@ -34,6 +43,12 @@ public class UserService {
                     .collect(Collectors.toList());
     }
 
+    /**
+     * Makes logged user friend with other user
+     * @param id other user id
+     * @param loggedUser logged user object
+     * @return list of logged users friends
+     */
     public List<UserDTO> friendUsers(Long id, User loggedUser) {
         User toFriendWith = userRepository.findOne(id);
         if (usersExists(loggedUser, toFriendWith)) {
@@ -46,6 +61,11 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Find all friends of logged user
+     * @param loggedUser logged user object
+     * @return list of users friends
+     */
     public List<UserDTO> findUserFriends(User loggedUser) {
         Set<User> friends = loggedUser.friends;
         if (friends == null) {
@@ -57,10 +77,21 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Finds user by email
+     * @param email
+     * @return
+     */
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
+    /**
+     * Unmake logged user friend with other user
+     * @param loggedUser logged user object
+     * @param id other user id
+     * @return list of logged users friends
+     */
     public List<UserDTO> unfriendUsers(User loggedUser, Long id) {
         User userToUnfriend = userRepository.findOne(id);
         if (usersExists(userToUnfriend, loggedUser)) {
@@ -73,6 +104,12 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Finds all people not friended with logged user, searched by name
+     * @param loggedUser logged user object
+     * @param name
+     * @return
+     */
     public List<UserDTO> findUsersNotFriendedWith(User loggedUser, String name) {
         if (name == null) {
             name = "";

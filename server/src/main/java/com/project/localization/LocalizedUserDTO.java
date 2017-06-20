@@ -3,7 +3,7 @@ package com.project.localization;
 import com.project.user.User;
 
 /**
- * Created by Adas on 2017-05-17.
+ * User with localization DTO class
  */
 public class LocalizedUserDTO {
     private Long id;

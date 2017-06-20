@@ -1,7 +1,7 @@
 package com.project.user;
 
 /**
- * Created by Adas on 2017-04-25.
+ * User DTO class
  */
 public class UserDTO {
 

@@ -22,43 +22,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 /**
- * Created by Adas on 2017-03-28.
+ * Main class
  */
 @SpringBootApplication
 @EnableNeo4jRepositories
 public class Application {
 
-    private final static Logger log = LoggerFactory.getLogger(Application.class);
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
-    }
-
-    @Bean
-    CommandLineRunner init(
-                           UserRepository userRepository) {
-        return args -> {
-            userRepository.deleteAll();
-            User admin = new User("admin@admin.pl", "admin", "pawel", "noga");
-            User pawel = new User("pawel@admin.pl", "pawel", "adas", "adam");
-            User marek = new User("marek@admin.pl", "marek", "marek", "adam");
-            admin.friendWith(pawel);
-            admin.friendWith(marek);
-
-            pawel.setLatitude(51.1464563475633);
-            pawel.setLongitude(17.0464563475633);
-            admin.setLatitude(51.13545633);
-            admin.setLongitude(17.01754513233);
-            marek.setLatitude(51.1703423042);
-            marek.setLongitude(17.049294912921);
-
-            pawel.shareLocationWith(marek);
-            admin.shareLocationWith(pawel);
-
-            userRepository.save(admin);
-            userRepository.save(pawel);
-            userRepository.save(marek);
-        };
     }
 
     @Configuration

@@ -11,19 +11,31 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Created by Adas on 2017-05-17.
+ * Localization service class
  */
 @Service
 public class LocalizationService {
     @Autowired
     private UserRepository userRepository;
 
-    public User updateLocalization(User user, LocalizationDTO loc) {
-        user.setLongitude(loc.getLongitude());
-        user.setLatitude(loc.getLatitude());
+    /**
+     * Updates users localization
+     * @param user
+     * @param localization
+     * @return user with updated localization
+     */
+    public User updateLocalization(User user, LocalizationDTO localization) {
+        user.setLongitude(localization.getLongitude());
+        user.setLatitude(localization.getLatitude());
         return userRepository.save(user);
     }
 
+    /**
+     * Enables sharing logged users localization with other user
+     * @param loggedUser logged user
+     * @param id other user id
+     * @return list of users that logged users shares localizations with
+     */
     public List<UserDTO> shareLocalization(User loggedUser, Long id) {
         User toShareLocalizationWith = userRepository.findOne(id);
         if (usersExists(loggedUser, toShareLocalizationWith)
@@ -38,6 +50,12 @@ public class LocalizationService {
 
     }
 
+    /**
+     * Disables sharing logged users localization with other user
+     * @param loggedUser logged user
+     * @param id other user id
+     * @return list of users that logged users shares localizations with
+     */
     public List<UserDTO> unshareLocalization(User loggedUser, Long id) {
         User toUnShareLocalizationWith = userRepository.findOne(id);
         if (usersExists(loggedUser, toUnShareLocalizationWith)){
@@ -49,6 +67,11 @@ public class LocalizationService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Finds all of logged user friends localizations
+     * @param loggedUser
+     * @return list of firends with thier localizations
+     */
     public List<LocalizedUserDTO> findLocalizedFriends(User loggedUser) {
         User user = userRepository.findOne(loggedUser.getId());
         return user.friends.stream()

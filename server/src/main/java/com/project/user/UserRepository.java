@@ -11,7 +11,18 @@ import java.util.List;
 @Repository
 public interface UserRepository extends GraphRepository<User> {
 
+    /**
+     * finds user by email
+     * @param email
+     * @return
+     */
     User findByEmail(String email);
+
+    /**
+     * finds user by lastname
+     * @param lastname
+     * @return
+     */
     List<User> findBySurnameIgnoreCaseContaining(String lastname);
 
 
